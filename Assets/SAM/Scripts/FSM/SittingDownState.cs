@@ -6,7 +6,7 @@ public class SittingDownState : BaseState
 {
     public override void EnterState(StateManager agent)
     {
-
+        Debug.Log("Entering Sitting State...");
     }
 
 

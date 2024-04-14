@@ -4,42 +4,60 @@ using System.Xml;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using static UnityEngine.Rendering.DebugUI;
 
 public class StateManager : MonoBehaviour
 {
 
-    BaseState currentState;
-    EnteringState enteringState = new EnteringState();
-    WalkToTableState walkToTableState = new WalkToTableState();
-    SittingDownState sittingState = new SittingDownState();
-    OrderState orderState = new OrderState();
-    WaitingState waitingState = new WaitingState();
-    AnnoyedState annoyedState = new AnnoyedState();
-    AngryState angryState = new AngryState();
-    AngryLeavingState angryLeavingState = new AngryLeavingState();
-    EatingState eatingState = new EatingState();
-    StandingUpState standingUpState = new StandingUpState();
-    LeavingState leavingState = new LeavingState();
+    //--------------------SUBKLASSER--------------------------------
 
+    public BaseState currentState;
+    public EnteringState enteringState = new EnteringState();
+    public WalkToTableState walkToTableState = new WalkToTableState();
+    public SittingDownState sittingState = new SittingDownState();
+    public OrderState orderState = new OrderState();
+    public WaitingState waitingState = new WaitingState();
+    public AnnoyedState annoyedState = new AnnoyedState();
+    public AngryState angryState = new AngryState();
+    public AngryLeavingState angryLeavingState = new AngryLeavingState();
+    public EatingState eatingState = new EatingState();
+    public StandingUpState standingUpState = new StandingUpState();
+    public LeavingState leavingState = new LeavingState();
+
+
+    //-------------------------------------------------------------
+
+    public GameObject agent;
+    public Transform[] tables;
+    public string[] tableNames = {"Table1", "Table2", "Table3", "Table4"};
+    public TableAvailable[] tableManager;
 
 
     void Start()
     {
+        
+        tables= new Transform[tableNames.Length];
+        tableManager = new TableAvailable[tables.Length];
+
+        for (int i = 0; i < tableNames.Length; i++)
+        {
+            GameObject patrolPointObj = GameObject.Find(tableNames[i]);
+            tables[i] = patrolPointObj.transform;
+            tableManager[i] = tables[i].GetComponent<TableAvailable>();
+        }    
+
         currentState = enteringState;
-
         currentState.EnterState(this);
-
+       
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
+       
         currentState.UpdateState(this);
-
-
 
     }
 
