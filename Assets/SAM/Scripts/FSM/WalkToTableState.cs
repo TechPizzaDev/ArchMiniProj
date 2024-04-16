@@ -6,7 +6,7 @@ using System;
 public class WalkToTableState : BaseState
 {
 
-    Transform[] tables;
+    
     Transform chosenTable;
     float moveSpeed = 5f;
     bool tableFound = false;
@@ -37,6 +37,7 @@ public class WalkToTableState : BaseState
             {
                 chosenTable = agent.tables[i];
                 agent.tableManager[i].OccupySeat();
+                agent.int_chosenTable = i;
                 tableFound = true;
 
                 break;

@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class TableAvailable : MonoBehaviour
+public class TableManager : MonoBehaviour
 {
     public bool seatAvailable = true;
 
@@ -21,8 +20,6 @@ public class TableAvailable : MonoBehaviour
 
     public void FreeSeat()
     {
-        seatAvailable=true;
+        seatAvailable = true;
     }
-
-
 }

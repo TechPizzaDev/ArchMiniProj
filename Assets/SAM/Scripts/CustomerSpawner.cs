@@ -7,9 +7,13 @@ public class CustomerSpawner : MonoBehaviour
     
     public GameObject agent;
     public Transform spawnPos;
-    [SerializeField] Vector2 vec2SpawnPos;
+    Vector2 vec2SpawnPos;
 
-    
+    private void Start()
+    {
+        vec2SpawnPos = spawnPos.position;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))

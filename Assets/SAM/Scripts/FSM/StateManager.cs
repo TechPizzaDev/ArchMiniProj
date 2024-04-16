@@ -18,9 +18,9 @@ public class StateManager : MonoBehaviour
     public SittingDownState sittingState = new SittingDownState();
     public OrderState orderState = new OrderState();
     public WaitingState waitingState = new WaitingState();
-    public AnnoyedState annoyedState = new AnnoyedState();
-    public AngryState angryState = new AngryState();
-    public AngryLeavingState angryLeavingState = new AngryLeavingState();
+    //public AnnoyedState annoyedState = new AnnoyedState();
+    //public AngryState angryState = new AngryState();
+    //public AngryLeavingState angryLeavingState = new AngryLeavingState();
     public EatingState eatingState = new EatingState();
     public StandingUpState standingUpState = new StandingUpState();
     public LeavingState leavingState = new LeavingState();
@@ -31,20 +31,26 @@ public class StateManager : MonoBehaviour
     public GameObject agent;
     public Transform[] tables;
     public string[] tableNames = {"Table1", "Table2", "Table3", "Table4"};
-    public TableAvailable[] tableManager;
+    public TableManager[] tableManager;
+    public GameObject leavingStorePosition;
+
+    public int int_chosenTable;
+    public bool isAnnoyed = false;
+    public bool isAngry = false;
+    public float timeLeftOnOrder;
 
 
     void Start()
     {
-        
+        leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
         tables= new Transform[tableNames.Length];
-        tableManager = new TableAvailable[tables.Length];
+        tableManager = new TableManager[tables.Length];
 
         for (int i = 0; i < tableNames.Length; i++)
         {
             GameObject patrolPointObj = GameObject.Find(tableNames[i]);
             tables[i] = patrolPointObj.transform;
-            tableManager[i] = tables[i].GetComponent<TableAvailable>();
+            tableManager[i] = tables[i].GetComponent<TableManager>();
         }    
 
         currentState = enteringState;
@@ -69,5 +75,8 @@ public class StateManager : MonoBehaviour
         state.EnterState(this);
     }
 
-    
+    public float GetTimeLeftOnOrder()
+    {
+        return timeLeftOnOrder;
+    }
 }

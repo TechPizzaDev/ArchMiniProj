@@ -1,31 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 
 public class EnteringState : BaseState
 {
-
+    float moveSpeed = 5f;
     float waitTime = 2;
     float timer = 0;
+    bool insideTheStore = false;
+    Vector2 storeLine;
 
 
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered EnteringState...");
-        agent.transform.position = new Vector2(-8, 0);
+        storeLine = new Vector2(-8, 0);
         timer = waitTime;
     }
 
 
     public override void UpdateState(StateManager agent)
     {
-        if (timer < 0)
+
+        
+        agent.transform.position = Vector2.MoveTowards(agent.transform.position, storeLine, moveSpeed * Time.deltaTime);
+
+        if (Vector2.Distance(agent.transform.position, storeLine) < 0.1f)
         {
-            agent.SwitchState(agent.walkToTableState);
+            insideTheStore = true;
             
         }
 
-        timer -= Time.deltaTime;
+        if(insideTheStore == true)
+        {
+            timer -= Time.deltaTime;
+        }
+
+        if (timer < 0)
+        {
+            agent.SwitchState(agent.walkToTableState);
+        }
     }
 }
