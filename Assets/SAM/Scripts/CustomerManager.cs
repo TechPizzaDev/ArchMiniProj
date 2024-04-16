@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerSpawner : MonoBehaviour
+public class CustomerManager : MonoBehaviour
 {
-    
     public GameObject agent;
     public Transform spawnPos;
     Vector2 vec2SpawnPos;

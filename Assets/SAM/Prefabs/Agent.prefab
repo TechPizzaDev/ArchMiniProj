@@ -110,6 +110,7 @@ MonoBehaviour:
   int_chosenTable: 0
   isAnnoyed: 0
   isAngry: 0
+  timeLeftOnOrder: 0
 --- !u!61 &2871639822405716075
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
