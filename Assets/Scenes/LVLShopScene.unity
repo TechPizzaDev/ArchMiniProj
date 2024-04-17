@@ -652,22 +652,10 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 132873612}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1458246732}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1021810883
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,6 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173076601835054ea09f98bb3fd7743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 50
 --- !u!212 &1021810885
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -761,7 +750,7 @@ Transform:
   m_GameObject: {fileID: 1021810883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.64, y: 0.41, z: 0}
+  m_LocalPosition: {x: 0.851, y: 0.502, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
