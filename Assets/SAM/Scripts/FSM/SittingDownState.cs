@@ -13,6 +13,8 @@ public class SittingDownState : BaseState
         Debug.Log("Entered SittingDownState...");
         //agent.transform.position = new Vector2(agent.transform.position.x, agent.transform.position.y + 1);
         timer = waitTime;
+
+        agent.transform.rotation = Quaternion.identity;
     }
 
 

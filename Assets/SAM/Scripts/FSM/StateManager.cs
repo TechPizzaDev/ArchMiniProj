@@ -18,9 +18,6 @@ public class StateManager : MonoBehaviour
     public SittingDownState sittingState = new SittingDownState();
     public OrderState orderState = new OrderState();
     public WaitingState waitingState = new WaitingState();
-    //public AnnoyedState annoyedState = new AnnoyedState();
-    //public AngryState angryState = new AngryState();
-    //public AngryLeavingState angryLeavingState = new AngryLeavingState();
     public EatingState eatingState = new EatingState();
     public StandingUpState standingUpState = new StandingUpState();
     public LeavingState leavingState = new LeavingState();

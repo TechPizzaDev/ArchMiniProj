@@ -4297,6 +4297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emotes: []
+  EmoteTemplate: {fileID: 8899907780093466424, guid: 755cc7923c6aef74c97cfe7cb78f8897, type: 3}
 --- !u!4 &1634063857
 Transform:
   m_ObjectHideFlags: 0

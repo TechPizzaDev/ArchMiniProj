@@ -39,7 +39,8 @@ public class EmoteManager : MonoBehaviour
     public void InstantiateEmote(EmoteEntry entry)
     {
         entry.Entity = Instantiate(EmoteTemplate, entry.Source.transform);
-        entry.Entity.transform.localPosition = new Vector3(0, 1, 0);
+        //entry.Entity.transform.localPosition = new Vector3(0, 1, 0);
+        entry.Entity.transform.localPosition = new Vector3(0, 0.125f, 0); //Justerade avståndet bara - Sam
 
         AddEmote(entry);
     }

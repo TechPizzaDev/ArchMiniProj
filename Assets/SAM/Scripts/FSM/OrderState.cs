@@ -11,7 +11,7 @@ public class OrderState : BaseState
     public event Action<OrderEntry>? OnCommitOrder;
 
     float rotationSpeed = 75f;
-    float waitTime = 30;
+    float waitTime = 15;
     float timer = 0;
 
     private EmoteEntry? orderEmote;
@@ -33,7 +33,7 @@ public class OrderState : BaseState
 
     public override void UpdateState(StateManager agent)
     {
-        agent.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        
 
 
 
@@ -57,7 +57,7 @@ public class OrderState : BaseState
 
         //DETTA ÄR EXEMPELKOD PÅ EN ORDER VISUALISERING, KOMMER ATT ÄNDRAS.
 
-        agent.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        //agent.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 
     private void OrderEmote_OnClick(EmoteEntry emote, bool userAction)

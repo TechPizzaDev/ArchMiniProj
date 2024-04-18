@@ -13,6 +13,8 @@ public class StandingUpState : BaseState
         Debug.Log("Entered StandingUpState...");
         agent.transform.position = new Vector2(agent.transform.position.x, agent.transform.position.y -1);
         timer = waitTime;
+
+        agent.transform.rotation = Quaternion.identity;
         //stäng av ät animation.
     }
 
