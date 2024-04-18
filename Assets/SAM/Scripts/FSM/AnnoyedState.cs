@@ -31,7 +31,7 @@ public class AnnoyedState : BaseState
         if (Input.GetMouseButtonDown(0)) 
         {
             
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = RayHelper.RaycastFromCamera(Input.mousePosition);
 
             
             if (hit.collider != null && hit.collider.gameObject == agent.gameObject && agent.GetComponent<BoxCollider2D>() != null)
