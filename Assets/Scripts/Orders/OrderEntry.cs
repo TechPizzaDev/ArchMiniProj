@@ -1,10 +1,12 @@
 ﻿using System;
-using UnityEngine;
 
 [Serializable]
 public class OrderEntry
 {
-    public StateManager Customer;
+    public StateManager Customer { get; }
 
-
+    public OrderEntry(StateManager customer)
+    {
+        Customer = customer != null ? customer : throw new ArgumentNullException(nameof(customer));
+    }
 }
