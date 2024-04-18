@@ -16,7 +16,7 @@ public class EnteringState : BaseState
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered EnteringState...");
-        storeLine = new Vector2(-8, 0);
+        storeLine = new Vector2(-6, 1);
         timer = waitTime;
     }
 

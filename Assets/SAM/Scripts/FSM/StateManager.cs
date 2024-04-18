@@ -30,7 +30,8 @@ public class StateManager : MonoBehaviour
 
     public GameObject agent;
     public Transform[] tables;
-    public string[] tableNames = {"Table1", "Table2", "Table3", "Table4"};
+    //public string[] tableNames = {"Table1", "Table2", "Table3", "Table4"};
+    public string[] tableNames = { "Chair1", "Chair2", "Chair3", "Chair4" };
     public TableManager[] tableManager;
     public GameObject leavingStorePosition;
 
