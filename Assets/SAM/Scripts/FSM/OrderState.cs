@@ -62,7 +62,11 @@ public class OrderState : BaseState
 
     private void OrderEmote_OnClick(EmoteEntry emote, bool userAction)
     {
+
+        //DENNA METODEN DUBBELKLICKAR VARJE GÅNG, VILKET DEN INTE FÅR GÖRA FÖR NÄRVARANDE. VÄNLIGEN FIXA!
         emote.Close(true);
+
+        
     }
 
     private void OrderEmote_OnClose(EmoteEntry emote, bool userAction)
