@@ -33,7 +33,7 @@ public class LeavingState : BaseState
         {
             if (leftTable == false)
             {
-                agent.tableManager[agent.int_chosenTable].FreeSeat();
+                agent.seatManager[agent.int_chosenTable].FreeSeat();
                 leftTable = true;
             }
 

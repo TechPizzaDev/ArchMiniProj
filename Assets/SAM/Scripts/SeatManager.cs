@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TableManager : MonoBehaviour
+public class SeatManager : MonoBehaviour
 {
     public bool seatAvailable = true;
 

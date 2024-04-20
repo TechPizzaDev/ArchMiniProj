@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8626986655422854584}
   - component: {fileID: -2312575472436308217}
   - component: {fileID: 1482488486380131095}
-  - component: {fileID: -9014740280356310637}
+  - component: {fileID: -375993566983198316}
   m_Layer: 0
   m_Name: CUSTOMER
   m_TagString: Agent
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-9014740280356310637
+--- !u!114 &-375993566983198316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,13 +171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036b8d80b56198e4fa8e30f068a60663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 7041465545911989998}
+  agent: {fileID: 0}
   tables: []
   tableNames:
-  - Table1
-  - Table2
-  - Table3
-  - Table4
+  - Chair1
+  - Chair2
+  - Chair3
+  - Chair4
   tableManager: []
   leavingStorePosition: {fileID: 0}
   int_chosenTable: 0

@@ -26,10 +26,10 @@ public class StateManager : MonoBehaviour
     //-------------------------------------------------------------
 
     public GameObject agent;
-    public Transform[] tables;
-    //public string[] tableNames = {"Table1", "Table2", "Table3", "Table4"};
-    public string[] tableNames = { "Chair1", "Chair2", "Chair3", "Chair4" };
-    public TableManager[] tableManager;
+    public Transform[] seats;
+    
+    private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
+    public SeatManager[] seatManager;
     public GameObject leavingStorePosition;
 
     public int int_chosenTable;
@@ -41,14 +41,14 @@ public class StateManager : MonoBehaviour
     void Start()
     {
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
-        tables= new Transform[tableNames.Length];
-        tableManager = new TableManager[tables.Length];
+        seats= new Transform[seatNames.Length];
+        seatManager = new SeatManager[seats.Length];
 
-        for (int i = 0; i < tableNames.Length; i++)
+        for (int i = 0; i < seatNames.Length; i++)
         {
-            GameObject patrolPointObj = GameObject.Find(tableNames[i]);
-            tables[i] = patrolPointObj.transform;
-            tableManager[i] = tables[i].GetComponent<TableManager>();
+            GameObject patrolPointObj = GameObject.Find(seatNames[i]);
+            seats[i] = patrolPointObj.transform;
+            seatManager[i] = seats[i].GetComponent<SeatManager>();
         }    
 
         currentState = enteringState;

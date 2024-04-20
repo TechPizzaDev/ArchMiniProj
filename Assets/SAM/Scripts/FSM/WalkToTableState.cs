@@ -30,13 +30,13 @@ public class WalkToTableState : BaseState
     {
 
         if(tableFound == false)
-        for (int i = 0; i < agent.tables.Length; i++)
+        for (int i = 0; i < agent.seats.Length; i++)
         {
 
-            if (agent.tableManager[i].SeatAvailable() == true)
+            if (agent.seatManager[i].SeatAvailable() == true)
             {
-                chosenTable = agent.tables[i];
-                agent.tableManager[i].OccupySeat();
+                chosenTable = agent.seats[i];
+                agent.seatManager[i].OccupySeat();
                 agent.int_chosenTable = i;
                 tableFound = true;
 
