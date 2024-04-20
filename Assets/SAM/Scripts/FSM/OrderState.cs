@@ -25,7 +25,7 @@ public class OrderState : BaseState
         if (orderEmote != null)
             orderEmote.Close(false);
 
-        orderEmote = new(agent.agent);
+        orderEmote = new EmoteEntry(agent.gameObject);
         orderEmote.OnClick += OrderEmote_OnClick;
         orderEmote.OnClose += OrderEmote_OnClose;
         OnAnnounceOrder?.Invoke(orderEmote);

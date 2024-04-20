@@ -48,8 +48,12 @@ public class WaitingState : BaseState
             agent.SwitchState(agent.standingUpState);
         }
 
+        // TODO: hur ska vi ge kunderna färdig mat?
+        //       skapa en klickbar emote när mat är klar?
+        //       låt kunder gå fram och plocka up?
+        bool orderReady = agent.timeLeftOnOrder < (waitTime - 1);
 
-        if (Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
+        if (orderReady && Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
         {
             // Cast a ray from the mouse position
             RaycastHit2D hit = RayHelper.RaycastFromCamera(Input.mousePosition);

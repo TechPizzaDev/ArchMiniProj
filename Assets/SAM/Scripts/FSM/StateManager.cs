@@ -25,7 +25,6 @@ public class StateManager : MonoBehaviour
 
     //-------------------------------------------------------------
 
-    public GameObject agent;
     public Transform[] seats;
     
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
