@@ -9,7 +9,8 @@ public class UI_Shop : MonoBehaviour
     private Transform container;
     Transform shopItemTemplate;
     IShopCustomer shopCustomer;
-  
+    public TMP_Text goldText;
+    [SerializeField] Shoper shoper;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class UI_Shop : MonoBehaviour
         {
             // money to spend
             shopCustomer.BoughtItem(itemType);
+            goldText.text = "Gold " + shoper.gold;
         }
            
     }
