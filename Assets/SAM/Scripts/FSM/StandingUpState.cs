@@ -11,7 +11,6 @@ public class StandingUpState : BaseState
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered StandingUpState...");
-        //agent.transform.position = new Vector2(agent.transform.position.x, agent.transform.position.y -0.75f);
         timer = waitTime;
 
         agent.transform.rotation = Quaternion.identity;

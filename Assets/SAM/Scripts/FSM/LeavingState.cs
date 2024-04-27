@@ -44,17 +44,15 @@ public class LeavingState : BaseState
             {
                 SetDestination(agent);
 
-                //Vector2 targetPosition = agent.leavingStorePosition.transform.position;
-
-                //agent.transform.position = Vector2.MoveTowards(agent.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-                //if (Vector2.Distance(agent.transform.position, targetPosition) < 0.1f)
-                //{
-                //    //agent dör.
-                //}
             }
         }
 
+        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 0.5f)
+        {
+
+            agent.SelfDestruct();
+
+        }
 
     }
     void SetDestination(StateManager agent)
@@ -76,12 +74,6 @@ public class LeavingState : BaseState
         agent.navMeshAgent.destination = navPosition.position;
 
 
-        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 0.5f)
-        {
-
-            agent.SelfDestruct();
-
-        }
 
     }
 }

@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class EnteringState : BaseState
 {
-    float moveSpeed = 5f;
+ 
     float waitTime = 2;
     float timer = 0;
     bool insideTheStore = false;
-    Vector2 storePosition;
+
     Transform navPosition;
 
 
@@ -19,7 +19,7 @@ public class EnteringState : BaseState
     {
         Debug.Log("Entered EnteringState...");
         navPosition = agent.enterStorePosition.transform;
-        storePosition = navPosition.position;
+     
         timer = waitTime;
     }
 
@@ -28,13 +28,7 @@ public class EnteringState : BaseState
     {
 
         SetDestination(agent);
-        //agent.transform.position = Vector2.MoveTowards(agent.transform.position, storePosition, moveSpeed * Time.deltaTime);
-
-        //if (Vector2.Distance(agent.transform.position, storePosition) < 0.1f)
-        //{
-        //    insideTheStore = true;
-
-        //}
+       
 
         if (insideTheStore == true)
         {
@@ -62,7 +56,7 @@ public class EnteringState : BaseState
             return;
         }
 
-        // Set the destination of the NavMeshAgent to the next patrol point
+    
         agent.navMeshAgent.destination = navPosition.position;
 
 

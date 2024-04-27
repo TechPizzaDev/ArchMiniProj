@@ -8,7 +8,7 @@ public class WalkToTableState : BaseState
 
     
     Transform chosenSeat;
-    float moveSpeed = 5f;
+  
     bool tableFound = false;
     
     
@@ -45,14 +45,7 @@ public class WalkToTableState : BaseState
 
         if(tableFound == true)
         {
-            //Vector2 targetPosition = chosenSeat.position;
-
-            //agent.transform.position = Vector2.MoveTowards(agent.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            //if (Vector2.Distance(agent.transform.position, targetPosition) < 0.1f)
-            //{
-            //    agent.SwitchState(agent.sittingState);
-            //}
+ 
             SetDestination(agent);
         }
 
