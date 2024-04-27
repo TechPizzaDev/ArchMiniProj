@@ -26,10 +26,13 @@ public class StateManager : MonoBehaviour
     //-------------------------------------------------------------
 
     public Transform[] seats;
+    public NavMeshAgent navMeshAgent;
     
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
     public GameObject leavingStorePosition;
+    public GameObject enterStorePosition;
+
 
     public int int_chosenTable;
     public bool isAnnoyed = false;
@@ -39,8 +42,14 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updateUpAxis = false;
+
+
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
-        seats= new Transform[seatNames.Length];
+        enterStorePosition = GameObject.Find("EnteredStorePosition");
+        seats = new Transform[seatNames.Length];
         seatManager = new SeatManager[seats.Length];
 
         for (int i = 0; i < seatNames.Length; i++)

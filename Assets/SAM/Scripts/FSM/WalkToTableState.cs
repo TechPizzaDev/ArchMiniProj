@@ -7,7 +7,7 @@ public class WalkToTableState : BaseState
 {
 
     
-    Transform chosenTable;
+    Transform chosenSeat;
     float moveSpeed = 5f;
     bool tableFound = false;
     
@@ -35,7 +35,7 @@ public class WalkToTableState : BaseState
 
             if (agent.seatManager[i].SeatAvailable() == true)
             {
-                chosenTable = agent.seats[i];
+                chosenSeat = agent.seats[i];
                 agent.seatManager[i].OccupySeat();
                 agent.int_chosenTable = i;
                 tableFound = true;
@@ -47,19 +47,45 @@ public class WalkToTableState : BaseState
 
         if(tableFound == true)
         {
-            Vector2 targetPosition = chosenTable.position;
+            //Vector2 targetPosition = chosenSeat.position;
 
-            agent.transform.position = Vector2.MoveTowards(agent.transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            //agent.transform.position = Vector2.MoveTowards(agent.transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(agent.transform.position, targetPosition) < 0.1f)
-            {
-                agent.SwitchState(agent.sittingState);
-            }
-
+            //if (Vector2.Distance(agent.transform.position, targetPosition) < 0.1f)
+            //{
+            //    agent.SwitchState(agent.sittingState);
+            //}
+            SetDestination(agent);
         }
 
 
-        
+        void SetDestination(StateManager agent)
+        {
+
+            if (agent.navMeshAgent == null)
+            {
+                Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
+                return;
+            }
+
+            if (!agent.navMeshAgent.isOnNavMesh)
+            {
+                Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
+                return;
+            }
+
+            // Set the destination of the NavMeshAgent to the next patrol point
+            agent.navMeshAgent.destination = chosenSeat.position;
+
+
+            if (Vector3.Distance(agent.navMeshAgent.nextPosition, chosenSeat.position) < 1f)
+            {
+                
+                agent.SwitchState(agent.sittingState);
+
+            }
+
+        }
 
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnteringState : BaseState
@@ -10,13 +11,15 @@ public class EnteringState : BaseState
     float waitTime = 2;
     float timer = 0;
     bool insideTheStore = false;
-    Vector2 storeLine;
+    Vector2 storePosition;
+    Transform navPosition;
 
 
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered EnteringState...");
-        storeLine = new Vector2(-6, 1);
+        navPosition = agent.enterStorePosition.transform;
+        storePosition = navPosition.position;
         timer = waitTime;
     }
 
@@ -24,16 +27,16 @@ public class EnteringState : BaseState
     public override void UpdateState(StateManager agent)
     {
 
-        
-        agent.transform.position = Vector2.MoveTowards(agent.transform.position, storeLine, moveSpeed * Time.deltaTime);
+        //SetDestination(agent);
+        agent.transform.position = Vector2.MoveTowards(agent.transform.position, storePosition, moveSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(agent.transform.position, storeLine) < 0.1f)
+        if (Vector2.Distance(agent.transform.position, storePosition) < 0.1f)
         {
             insideTheStore = true;
-            
+
         }
 
-        if(insideTheStore == true)
+        if (insideTheStore == true)
         {
             timer -= Time.deltaTime;
         }
@@ -42,5 +45,34 @@ public class EnteringState : BaseState
         {
             agent.SwitchState(agent.walkToTableState);
         }
+    }
+
+    public void SetDestination(StateManager agent)
+    {
+
+        if (agent.navMeshAgent == null)
+        {
+            Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
+            return;
+        }
+
+        if (!agent.navMeshAgent.isOnNavMesh)
+        {
+            Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
+            return;
+        }
+
+        // Set the destination of the NavMeshAgent to the next patrol point
+        agent.navMeshAgent.destination = navPosition.position;
+
+
+        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 0.1f)
+        {
+
+            agent.SwitchState(agent.walkToTableState);
+
+        }
+
+
     }
 }
