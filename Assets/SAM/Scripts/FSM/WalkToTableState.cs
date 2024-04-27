@@ -19,10 +19,7 @@ public class WalkToTableState : BaseState
         Debug.Log("Entered WalkToTableState...");
 
 
-        //tables = agent.tables;
-        //System.Random random = new System.Random();
-        //int randomNr = random.Next(0, 4);
-        //chosenTable = tables[randomNr];
+        
     }
 
 
@@ -39,6 +36,7 @@ public class WalkToTableState : BaseState
                 agent.seatManager[i].OccupySeat();
                 agent.int_chosenTable = i;
                 tableFound = true;
+                
 
                 break;
             }
@@ -74,9 +72,8 @@ public class WalkToTableState : BaseState
                 return;
             }
 
-            // Set the destination of the NavMeshAgent to the next patrol point
-            agent.navMeshAgent.destination = chosenSeat.position;
-
+            
+            agent.navMeshAgent.destination = new Vector3(chosenSeat.position.x, chosenSeat.position.y + 0.4f, chosenSeat.position.z);
 
             if (Vector3.Distance(agent.navMeshAgent.nextPosition, chosenSeat.position) < 1f)
             {

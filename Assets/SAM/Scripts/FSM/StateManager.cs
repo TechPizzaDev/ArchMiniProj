@@ -85,4 +85,9 @@ public class StateManager : MonoBehaviour
     {
         return timeLeftOnOrder;
     }
+
+    public void SelfDestruct()
+    {
+        Destroy(gameObject);
+    }
 }

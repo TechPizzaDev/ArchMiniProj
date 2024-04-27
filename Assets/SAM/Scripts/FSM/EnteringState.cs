@@ -27,14 +27,14 @@ public class EnteringState : BaseState
     public override void UpdateState(StateManager agent)
     {
 
-        //SetDestination(agent);
-        agent.transform.position = Vector2.MoveTowards(agent.transform.position, storePosition, moveSpeed * Time.deltaTime);
+        SetDestination(agent);
+        //agent.transform.position = Vector2.MoveTowards(agent.transform.position, storePosition, moveSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(agent.transform.position, storePosition) < 0.1f)
-        {
-            insideTheStore = true;
+        //if (Vector2.Distance(agent.transform.position, storePosition) < 0.1f)
+        //{
+        //    insideTheStore = true;
 
-        }
+        //}
 
         if (insideTheStore == true)
         {
@@ -66,10 +66,10 @@ public class EnteringState : BaseState
         agent.navMeshAgent.destination = navPosition.position;
 
 
-        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 0.1f)
+        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 0.5f)
         {
 
-            agent.SwitchState(agent.walkToTableState);
+            insideTheStore = true;
 
         }
 
