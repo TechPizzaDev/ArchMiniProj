@@ -30,7 +30,7 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
-    void Spawn()
+   public void Spawn()
     {
         GameObject spawnedObject = Instantiate(agent, vec2SpawnPos, Quaternion.identity);
 

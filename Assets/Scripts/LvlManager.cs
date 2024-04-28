@@ -17,9 +17,15 @@ public class LvlManager : MonoBehaviour
     public bool shopOpen;
     public TMP_Text lvlText;
     public TMP_Text goldText;
-    [SerializeField] float levelDuration = 5f;
+    [SerializeField] float levelDuration = 50f;
+    [SerializeField] float levelDurationIncerace = 10f;
+    CustomerManager customerManager;
+    [SerializeField] int customersThisLvl;
+    [SerializeField] int customerIncreas = 1;
+    public float callInterval = 5f;
+    public float callIntervalDecreas = 1f;
 
-  
+
     private void Awake()
     {
         
@@ -28,9 +34,10 @@ public class LvlManager : MonoBehaviour
 
     void Start()
     {
+        customerManager = FindAnyObjectByType<CustomerManager>();
         LvlAtributes();
-        nextLvlButton.gameObject.SetActive(false);
-        StartCoroutine(LevelTimerCoroutine());
+        nextLvlButton.gameObject.SetActive(true);
+        //StartCoroutine(LevelTimerCoroutine());
       
     }
 
@@ -53,26 +60,45 @@ public class LvlManager : MonoBehaviour
     private void Update()
     {
         
+       
     }
+  
+    IEnumerator CustomerSpawn()
+    {
+        int callsMade = 0;
+        float elapsedTime = 0f;
 
+        while (callsMade < customersThisLvl && elapsedTime < levelDuration)
+        {
+            
+            customerManager.Spawn();
+
+            callsMade++;
+            yield return new WaitForSeconds(callInterval);
+            elapsedTime += callInterval;
+        }
+
+        Debug.Log("all customer spawnd!");
+    }
     public void LvlAtributes()
     {
  
         if (lvl == 1)
         {
+            customersThisLvl = 3;
             //unlock station 1'
             // more custmers
         }
         else if (lvl == 2)
         {
-            levelDuration = 10f;
+            
             shoper.gold += 10;
             //unlock station 2
         }
         else if (lvl == 3)
         {
-            levelDuration = 15f;
-            //unlock station 2
+           
+
         }
         Debug.Log(levelDuration);
         goldText.text = "Gold " + shoper.gold;
@@ -89,6 +115,9 @@ public class LvlManager : MonoBehaviour
         Debug.Log("Level Complete!");
         shopOpen = true;
         lvl++;
+        callInterval -= callIntervalDecreas;
+        levelDuration += levelDurationIncerace;
+        customersThisLvl += customerIncreas;
         ActivateStuff();
         // cut scnen
     }
@@ -97,6 +126,7 @@ public class LvlManager : MonoBehaviour
     {
         lvlText.text = " Lvl " + lvl;
         LvlAtributes();
+        StartCoroutine(CustomerSpawn());
         StartCoroutine(LevelTimerCoroutine());
     }
 }
