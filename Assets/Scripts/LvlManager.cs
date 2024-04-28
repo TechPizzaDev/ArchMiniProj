@@ -115,7 +115,10 @@ public class LvlManager : MonoBehaviour
         Debug.Log("Level Complete!");
         shopOpen = true;
         lvl++;
-        callInterval -= callIntervalDecreas;
+        if(lvl < 6)
+        {
+            callInterval -= callIntervalDecreas;
+        }
         levelDuration += levelDurationIncerace;
         customersThisLvl += customerIncreas;
         ActivateStuff();
