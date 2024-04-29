@@ -24,10 +24,9 @@ public class StateManager : MonoBehaviour
 
 
     //-------------------------------------------------------------
-
     public Transform[] seats;
     public NavMeshAgent navMeshAgent;
-    
+
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
     public GameObject leavingStorePosition;
@@ -39,12 +38,17 @@ public class StateManager : MonoBehaviour
     public bool isAngry = false;
     public float timeLeftOnOrder;
 
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+    public bool walking;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
+
+
 
 
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
@@ -57,23 +61,36 @@ public class StateManager : MonoBehaviour
             GameObject patrolPointObj = GameObject.Find(seatNames[i]);
             seats[i] = patrolPointObj.transform;
             seatManager[i] = seats[i].GetComponent<SeatManager>();
-        }    
+        }
 
         currentState = enteringState;
         currentState.EnterState(this);
-       
+
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        //Animator
+        AnimationDirection();
+
+        if (walking)
+        {
+            animator.SetBool("walking", true);
+        }
+        else if (!walking)
+        {
+            animator.SetBool("walking", false);
+        }
+
         currentState.UpdateState(this);
 
     }
 
-    
+
 
     public void SwitchState(BaseState state)
     {
@@ -89,5 +106,21 @@ public class StateManager : MonoBehaviour
     public void SelfDestruct()
     {
         Destroy(gameObject);
+    }
+
+    public void AnimationDirection()
+    {
+        if (transform.position.x < navMeshAgent.destination.x)
+        {
+            //Debug.Log("going right");
+            walking = true;
+            spriteRenderer.flipX = false;
+        }
+        if (transform.position.x > navMeshAgent.destination.x)
+        {
+            //Debug.Log("going left");
+            walking = true;
+            spriteRenderer.flipX = true;
+        }
     }
 }

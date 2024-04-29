@@ -64,13 +64,13 @@ public class WalkToTableState : BaseState
                 Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
                 return;
             }
-
+            agent.walking = true;
             
             agent.navMeshAgent.destination = new Vector3(chosenSeat.position.x, chosenSeat.position.y + 0.4f, chosenSeat.position.z);
 
             if (Vector3.Distance(agent.navMeshAgent.nextPosition, chosenSeat.position) < 1f)
             {
-                
+                agent.walking = false;
                 agent.SwitchState(agent.sittingState);
 
             }

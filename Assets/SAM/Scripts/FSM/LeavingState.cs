@@ -47,7 +47,7 @@ public class LeavingState : BaseState
             }
         }
 
-        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 0.5f)
+        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 1f)
         {
 
             agent.SelfDestruct();
