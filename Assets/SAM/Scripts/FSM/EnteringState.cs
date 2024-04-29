@@ -57,7 +57,7 @@ public class EnteringState : BaseState
             Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
             return;
         }
-       agent.walking = true;
+        agent.walking = true;
     
         agent.navMeshAgent.destination = navPosition.position;
         

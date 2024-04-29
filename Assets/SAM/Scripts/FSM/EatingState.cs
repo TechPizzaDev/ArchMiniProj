@@ -22,6 +22,7 @@ public class EatingState : BaseState
 
     public override void UpdateState(StateManager agent)
     {
+        agent.SittingDirection();
 
         agent.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
 

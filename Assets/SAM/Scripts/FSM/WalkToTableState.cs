@@ -17,9 +17,9 @@ public class WalkToTableState : BaseState
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered WalkToTableState...");
+        agent.walking = true;
 
 
-        
     }
 
 
@@ -33,6 +33,7 @@ public class WalkToTableState : BaseState
             if (agent.seatManager[i].SeatAvailable() == true)
             {
                 chosenSeat = agent.seats[i];
+                agent.chosenSeat = chosenSeat;
                 agent.seatManager[i].OccupySeat();
                 agent.int_chosenTable = i;
                 tableFound = true;
@@ -45,7 +46,7 @@ public class WalkToTableState : BaseState
 
         if(tableFound == true)
         {
- 
+            
             SetDestination(agent);
         }
 
@@ -64,9 +65,10 @@ public class WalkToTableState : BaseState
                 Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
                 return;
             }
-            agent.walking = true;
             
-            agent.navMeshAgent.destination = new Vector3(chosenSeat.position.x, chosenSeat.position.y + 0.4f, chosenSeat.position.z);
+            
+            agent.navMeshAgent.destination = new Vector3(chosenSeat.position.x, chosenSeat.position.y + 0.25f, chosenSeat.position.z);
+          
 
             if (Vector3.Distance(agent.navMeshAgent.nextPosition, chosenSeat.position) < 1f)
             {

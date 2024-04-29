@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3649823335037978888}
   - component: {fileID: 6751363244810314906}
   - component: {fileID: 731178422582174268}
+  - component: {fileID: 4093799630389324064}
   m_Layer: 0
   m_Name: CUSTOMER
   m_TagString: Agent
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seats: []
+  chosenSeat: {fileID: 0}
   navMeshAgent: {fileID: 0}
   seatManager: []
   leavingStorePosition: {fileID: 0}
@@ -109,6 +111,9 @@ MonoBehaviour:
   isAnnoyed: 0
   isAngry: 0
   timeLeftOnOrder: 0
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  walking: 0
 --- !u!195 &3649823335037978888
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -138,7 +143,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7041465545911989998}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -197,3 +202,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &4093799630389324064
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7041465545911989998}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 10
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

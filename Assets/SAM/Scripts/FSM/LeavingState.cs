@@ -16,11 +16,16 @@ public class LeavingState : BaseState
         Debug.Log("Entered LeavingState...");
         timer = waitTime;
         navPosition = agent.leavingStorePosition.transform;
+        agent.walking = true;
+
     }
 
 
     public override void UpdateState(StateManager agent)
     {
+        
+
+
         if (agent.isAnnoyed)
         {
             //lägg in irriterad animation eller textur här.

@@ -33,8 +33,8 @@ public class OrderState : BaseState
 
     public override void UpdateState(StateManager agent)
     {
-        
 
+        agent.SittingDirection();
 
 
         timer -= Time.deltaTime;

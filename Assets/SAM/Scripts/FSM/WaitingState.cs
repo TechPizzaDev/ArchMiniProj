@@ -20,6 +20,9 @@ public class WaitingState : BaseState
 
     public override void UpdateState(StateManager agent)
     {
+        agent.SittingDirection();
+
+
         timer -= Time.deltaTime;
         agent.timeLeftOnOrder -= Time.deltaTime;
 

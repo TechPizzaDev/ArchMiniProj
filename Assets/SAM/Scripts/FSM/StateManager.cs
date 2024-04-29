@@ -25,10 +25,12 @@ public class StateManager : MonoBehaviour
 
     //-------------------------------------------------------------
     public Transform[] seats;
+    public Transform chosenSeat;
     public NavMeshAgent navMeshAgent;
 
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
+    //public SpriteRenderer[] seatSprite;
     public GameObject leavingStorePosition;
     public GameObject enterStorePosition;
 
@@ -55,12 +57,14 @@ public class StateManager : MonoBehaviour
         enterStorePosition = GameObject.Find("EnteredStorePosition");
         seats = new Transform[seatNames.Length];
         seatManager = new SeatManager[seats.Length];
+        //seatSprite = new SpriteRenderer[seats.Length];
 
         for (int i = 0; i < seatNames.Length; i++)
         {
             GameObject patrolPointObj = GameObject.Find(seatNames[i]);
             seats[i] = patrolPointObj.transform;
             seatManager[i] = seats[i].GetComponent<SeatManager>();
+            //seatSprite[i] = seats[i].GetComponent<SpriteRenderer>();
         }
 
         currentState = enteringState;
@@ -76,6 +80,7 @@ public class StateManager : MonoBehaviour
     {
         //Animator
         AnimationDirection();
+
 
         if (walking)
         {
@@ -110,16 +115,30 @@ public class StateManager : MonoBehaviour
 
     public void AnimationDirection()
     {
-        if (transform.position.x < navMeshAgent.destination.x)
+        //Flippar gubben åt rätt håll när han går någonstans.
+        if (transform.position.x < navMeshAgent.destination.x && walking==true)
         {
             //Debug.Log("going right");
-            walking = true;
+            //walking = true;
             spriteRenderer.flipX = false;
         }
-        if (transform.position.x > navMeshAgent.destination.x)
+        if (transform.position.x > navMeshAgent.destination.x && walking == true)
         {
             //Debug.Log("going left");
-            walking = true;
+            //walking = true;
+            spriteRenderer.flipX = true;
+        }
+    }
+
+    public void SittingDirection()
+    {
+        //Flippar gubben åt rätt håll när han sätter sig.
+        if (chosenSeat.GetComponent<SpriteRenderer>().flipX == true)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
             spriteRenderer.flipX = true;
         }
     }
