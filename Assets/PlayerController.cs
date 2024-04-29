@@ -41,13 +41,13 @@ public class PlayerController : MonoBehaviour
         }
         if (transform.position.x < navMeshAgent.destination.x)
         {
-            Debug.Log("going right");
+            //Debug.Log("going right");
             walking = true;
             spriteRenderer.flipX = false;
         }
         if (transform.position.x > navMeshAgent.destination.x)
         {
-            Debug.Log("going left");
+            //Debug.Log("going left");
             walking = true;
             spriteRenderer.flipX = true;
         }
@@ -85,9 +85,9 @@ public class PlayerController : MonoBehaviour
 
 
                 destinationPoint.position = new Vector3(worldPos.x, worldPos.y, 0f);
-                Debug.Log(worldPos.x);
-                Debug.Log(worldPos.y);
-                Debug.Log(worldPos.z);
+                //Debug.Log(worldPos.x);
+                //Debug.Log(worldPos.y);
+                //Debug.Log(worldPos.z);
 
             }
         }
