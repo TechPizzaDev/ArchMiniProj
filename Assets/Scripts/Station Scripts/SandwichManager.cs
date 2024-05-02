@@ -59,10 +59,6 @@ public class SandwichManager : MonoBehaviour
             pos.z = -0.1f;
             objectInHand.transform.position = pos;
         }
-
-        //if click on tomato bowl
-        //mouse = tomato 
-        //if press on macka --> place tomato 
     }
 
     bool TryPlace(GameObject objToPlace)
