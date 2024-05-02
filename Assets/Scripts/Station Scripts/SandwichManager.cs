@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //MMM = Mack Maker Manager ;)
@@ -10,6 +11,7 @@ public class SandwichManager : MonoBehaviour
 
     public GameObject visualPrefab;
     public VisualSandwich currentVisual;
+    public GameObject orderedSandwich;
 
     public Dictionary<Ingredient, List<GameObject>> ingredients = new();
 
@@ -109,6 +111,9 @@ public class SandwichManager : MonoBehaviour
 
         currentVisual.isFinished = true;
         currentVisual.rigidBody.AddForce(new Vector2(0, 1000));
+
+        Instantiate(orderedSandwich);
+        orderedSandwich.GetComponent<OrderedSandwich>().ingredients = ingredients;
 
         ingredients = new Dictionary<Ingredient, List<GameObject>>();
         currentVisual = SpawnVisual();
