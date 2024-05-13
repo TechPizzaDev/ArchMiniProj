@@ -10,7 +10,8 @@ public class SandwichManager : MonoBehaviour
     Ingredient ingredientInHand;
 
     public GameObject visualPrefab;
-    public VisualSandwich currentVisual;
+    public VisualSandwich currentSandwich;
+    public VisualBlender currentSmoothie;
     public GameObject orderedSandwich;
 
     public Dictionary<Ingredient, List<GameObject>> ingredients = new();
@@ -23,7 +24,7 @@ public class SandwichManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentVisual = SpawnVisual();
+        currentSandwich = SpawnVisual();
     }
 
     // Update is called once per frame
@@ -36,10 +37,16 @@ public class SandwichManager : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.TryGetComponent(out Ingredient ingredient))
+                if (hit.collider.gameObject.TryGetComponent(out IngredientSandwich ingredientSandwich))
                 {
-                    objectInHand = Instantiate(ingredient.prefab, currentVisual.placeArea.gameObject.transform, true);
-                    ingredientInHand = ingredient;
+                    objectInHand = Instantiate(ingredientSandwich.prefab, currentSandwich.placeArea.gameObject.transform, true);
+                    ingredientInHand = ingredientSandwich;
+                }
+                else if (hit.collider.gameObject.TryGetComponent(out IngredientSmoothie ingredientSmoothie))
+                {
+                    objectInHand = Instantiate(ingredientSmoothie.prefab, currentSmoothie.placeArea.gameObject.transform, true);
+                    objectInHand.GetComponent<Rigidbody2D>().isKinematic = true;
+                    ingredientInHand = ingredientSmoothie;
                 }
                 else if (hit.collider.gameObject.TryGetComponent(out TrashCan trash))
                 {
@@ -57,14 +64,21 @@ public class SandwichManager : MonoBehaviour
         {
             if (objectInHand != null)
             {
-                if (hit.collider == currentVisual.placeArea && TryPlace(objectInHand))
+                if (ingredientInHand is IngredientSandwich)
                 {
-                }
-                else
-                {
-                    Destroy(objectInHand);
-                }
+                    if (hit.collider == currentSandwich.placeArea && TryPlace(objectInHand))
+                    {
 
+                    }
+                    else
+                    {
+                        Destroy(objectInHand);
+                    }
+                }
+                else if(ingredientInHand is IngredientSmoothie)
+                {
+                    objectInHand.GetComponent<Rigidbody2D>().isKinematic = false;
+                }
                 objectInHand = null;
                 ingredientInHand = null;
             }
@@ -96,7 +110,7 @@ public class SandwichManager : MonoBehaviour
             ingdList.Add(objToPlace);
 
             Vector2 point = pointList.points[(ingdList.Count - 1) % pointList.points.Length];
-            objToPlace.transform.position = currentVisual.placeArea.transform.position + new Vector3(point.x, point.y, 0);
+            objToPlace.transform.position = currentSandwich.placeArea.transform.position + new Vector3(point.x, point.y, 0);
             return true;
         }
         return false;
@@ -109,13 +123,13 @@ public class SandwichManager : MonoBehaviour
             return;
         }
 
-        currentVisual.isFinished = true;
-        currentVisual.rigidBody.AddForce(new Vector2(0, 1000));
+        currentSandwich.isFinished = true;
+        currentSandwich.rigidBody.AddForce(new Vector2(0, 1000));
 
         Instantiate(orderedSandwich);
         orderedSandwich.GetComponent<OrderedSandwich>().ingredients = ingredients;
 
         ingredients = new Dictionary<Ingredient, List<GameObject>>();
-        currentVisual = SpawnVisual();
+        currentSandwich = SpawnVisual();
     }
 }
