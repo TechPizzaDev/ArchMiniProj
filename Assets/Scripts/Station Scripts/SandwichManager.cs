@@ -15,6 +15,7 @@ public class SandwichManager : MonoBehaviour
     public GameObject orderedSandwich;
 
     public Dictionary<Ingredient, List<GameObject>> ingredients = new();
+    public HashSet<GameObject> smoothieIngredients = new();
 
     VisualSandwich SpawnVisual()
     {
@@ -50,12 +51,17 @@ public class SandwichManager : MonoBehaviour
                 }
                 else if (hit.collider.gameObject.TryGetComponent(out TrashCan trash))
                 {
+                    foreach (var obj in smoothieIngredients)
+                    {
+                        Destroy(obj);
+                    }
                     foreach (var list in ingredients.Values)
                     {
                         foreach (var obj in list)
                             Destroy(obj);
                     }
                     ingredients.Clear();
+                    smoothieIngredients.Clear();
                 }
             }
         }
