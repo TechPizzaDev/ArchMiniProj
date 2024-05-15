@@ -6,7 +6,7 @@ public class WaitingState : BaseState
 {
 
     float rotationSpeed = 50f;
-    float waitTime = 90;
+    float waitTime = 5;
     float timer = 0;
 
     public override void EnterState(StateManager agent)
