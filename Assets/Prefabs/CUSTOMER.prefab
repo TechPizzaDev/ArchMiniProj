@@ -104,6 +104,7 @@ MonoBehaviour:
   seats: []
   chosenSeat: {fileID: 0}
   navMeshAgent: {fileID: 0}
+  timerBarPrefab: {fileID: 8756359371096676503, guid: 898226c94cc5e4f41a6de12bca2af23a, type: 3}
   seatManager: []
   leavingStorePosition: {fileID: 0}
   enterStorePosition: {fileID: 0}
@@ -111,6 +112,7 @@ MonoBehaviour:
   isAnnoyed: 0
   isAngry: 0
   timeLeftOnOrder: 0
+  waitingTime: 120
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   walking: 0

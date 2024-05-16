@@ -6,22 +6,22 @@ public class WaitingState : BaseState
 {
 
     float rotationSpeed = 50f;
-    float waitTime = 90;
+    
     float timer = 0;
 
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered WaitingState...");
-        timer = waitTime;
+        timer = agent.waitingTime;
         agent.isAnnoyed = false;
-        agent.timeLeftOnOrder = waitTime;
+        agent.timeLeftOnOrder = timer;
     }
 
 
     public override void UpdateState(StateManager agent)
     {
         agent.SittingDirection();
-
+        //agent.timerBar.SetTime(timer);
 
         timer -= Time.deltaTime;
         agent.timeLeftOnOrder -= Time.deltaTime;
@@ -54,9 +54,14 @@ public class WaitingState : BaseState
         // TODO: hur ska vi ge kunderna färdig mat?
         //       skapa en klickbar emote när mat är klar?
         //       låt kunder gå fram och plocka up?
-        bool orderReady = agent.timeLeftOnOrder < (waitTime - 1);
 
-        if (orderReady && Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
+        // Sam: När ordern är färdig, håller spelaren i tallriken, och leverar maten till kunden,
+        // genom att klicka på rätt kund och vänta tills kunden når fram.
+        // Endast då blir "orderDelivered" true.
+
+        bool orderDelivered = true;
+
+        if (orderDelivered && Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
         {
             // Cast a ray from the mouse position
             RaycastHit2D hit = RayHelper.RaycastFromCamera(Input.mousePosition);

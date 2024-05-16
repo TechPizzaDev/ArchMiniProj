@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 using System;
 using static UnityEngine.Rendering.DebugUI;
@@ -28,6 +29,11 @@ public class StateManager : MonoBehaviour
     public Transform chosenSeat;
     public NavMeshAgent navMeshAgent;
 
+
+    public GameObject timerBarPrefab;
+    private GameObject timerBarInstance;
+    private Slider timerBarSlider;
+
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
     //public SpriteRenderer[] seatSprite;
@@ -39,6 +45,7 @@ public class StateManager : MonoBehaviour
     public bool isAnnoyed = false;
     public bool isAngry = false;
     public float timeLeftOnOrder;
+    public int waitingTime = 120;
 
     public Animator animator;
     public SpriteRenderer spriteRenderer;
@@ -46,13 +53,18 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
+        SpawnTimerBar();
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
 
 
 
+        //timerBarScript.SetMaxTime(waitingTime);
 
+
+        
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
         enterStorePosition = GameObject.Find("EnteredStorePosition");
         seats = new Transform[seatNames.Length];
@@ -80,6 +92,13 @@ public class StateManager : MonoBehaviour
     {
         //Animator
         AnimationDirection();
+
+      //TimerBar
+        
+        timerBarInstance.transform.position=transform.position;
+        
+        
+
 
 
         if (walking)
@@ -111,6 +130,7 @@ public class StateManager : MonoBehaviour
     public void SelfDestruct()
     {
         Destroy(gameObject);
+        Destroy(timerBarInstance);
     }
 
     public void AnimationDirection()
@@ -142,4 +162,12 @@ public class StateManager : MonoBehaviour
             spriteRenderer.flipX = true;
         }
     }
+
+    void SpawnTimerBar()
+    {
+        Debug.Log("spawned bar");
+        timerBarInstance= Instantiate(timerBarPrefab, transform.position, Quaternion.identity);
+        timerBarSlider = timerBarInstance.GetComponent<Slider>();
+    }
+    
 }
