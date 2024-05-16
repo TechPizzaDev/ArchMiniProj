@@ -1,15 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class LvlManager : MonoBehaviour
 {
     public int lvl;
+    public static int agentsDestroyd;
 
     public Button nextLvlButton;
     [SerializeField] UI_Shop uiShop;
@@ -25,10 +22,8 @@ public class LvlManager : MonoBehaviour
     public float callInterval = 5f;
     public float callIntervalDecreas = 1f;
 
-
     private void Awake()
     {
-        
         //shoper = FindAnyObjectByType<Shoper>();
     }
 
@@ -37,8 +32,8 @@ public class LvlManager : MonoBehaviour
         customerManager = FindAnyObjectByType<CustomerManager>();
         LvlAtributes();
         nextLvlButton.gameObject.SetActive(true);
-        //StartCoroutine(LevelTimerCoroutine());
-      
+        agentsDestroyd = 0;
+        StartNewLvl();
     }
 
     void ActivateStuff()
@@ -50,6 +45,7 @@ public class LvlManager : MonoBehaviour
             uiShop.Show(shopCustomer);
         }
     }
+
     public void OpneShop()
     {
         nextLvlButton.gameObject.SetActive(false);
@@ -57,57 +53,57 @@ public class LvlManager : MonoBehaviour
         shopOpen = false;
         StartNewLvl();
     }
+
     private void Update()
     {
-        
-       
+        if (agentsDestroyd >= customersThisLvl)
+        {
+            LevelComplete();
+        }
     }
-  
+
     IEnumerator CustomerSpawn()
     {
         int callsMade = 0;
-        float elapsedTime = 0f;
 
-        while (callsMade < customersThisLvl && elapsedTime < levelDuration)
+        while (callsMade < customersThisLvl)
         {
-            
             customerManager.Spawn();
-
             callsMade++;
             yield return new WaitForSeconds(callInterval);
-            elapsedTime += callInterval;
         }
 
-        Debug.Log("all customer spawnd!");
+        Debug.Log("All customers spawned!");
     }
+
+    public void AgentDestroyed()
+    {
+        agentsDestroyd++;
+        if (agentsDestroyd >= customersThisLvl)
+        {
+            LevelComplete();
+            agentsDestroyd = 0;
+        }
+    }
+
     public void LvlAtributes()
     {
- 
         if (lvl == 1)
         {
             customersThisLvl = 3;
-            //unlock station 1'
-            // more custmers
+            //unlock station 1
         }
         else if (lvl == 2)
         {
-            
             shoper.gold += 10;
             //unlock station 2
         }
         else if (lvl == 3)
         {
-           
-
+            // other level attributes
         }
         Debug.Log(levelDuration);
         goldText.text = "Gold " + shoper.gold;
-    }
-    IEnumerator LevelTimerCoroutine()
-    {
-        yield return new WaitForSeconds(levelDuration);
-
-        LevelComplete();
     }
 
     void LevelComplete()
@@ -115,21 +111,20 @@ public class LvlManager : MonoBehaviour
         Debug.Log("Level Complete!");
         shopOpen = true;
         lvl++;
-        if(lvl < 6)
+        if (lvl < 6)
         {
             callInterval -= callIntervalDecreas;
         }
         levelDuration += levelDurationIncerace;
         customersThisLvl += customerIncreas;
         ActivateStuff();
-        // cut scnen
+
     }
 
     public void StartNewLvl()
     {
-        lvlText.text = " Lvl " + lvl;
+        lvlText.text = "Lvl " + lvl;
         LvlAtributes();
         StartCoroutine(CustomerSpawn());
-        StartCoroutine(LevelTimerCoroutine());
     }
 }

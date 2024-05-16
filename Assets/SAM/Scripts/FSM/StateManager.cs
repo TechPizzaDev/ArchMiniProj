@@ -9,6 +9,8 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class StateManager : MonoBehaviour
 {
+    // 
+    private LvlManager lvlManager;
 
     //--------------------SUBKLASSER--------------------------------
 
@@ -50,7 +52,7 @@ public class StateManager : MonoBehaviour
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
 
-
+        lvlManager = FindObjectOfType<LvlManager>();
 
 
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
@@ -110,7 +112,13 @@ public class StateManager : MonoBehaviour
 
     public void SelfDestruct()
     {
+        if (lvlManager != null)
+        {
+            lvlManager.AgentDestroyed();
+        }
+
         Destroy(gameObject);
+       
     }
 
     public void AnimationDirection()
