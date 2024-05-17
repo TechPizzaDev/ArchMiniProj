@@ -107,11 +107,13 @@ public class StateManager : MonoBehaviour
 
     public float GetTimeLeftOnOrder()
     {
+        
         return timeLeftOnOrder;
     }
 
     public void SelfDestruct()
     {
+        // conceting to lvl manager Arvid
         if (lvlManager != null)
         {
             lvlManager.AgentDestroyed();

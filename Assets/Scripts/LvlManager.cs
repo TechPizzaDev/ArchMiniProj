@@ -85,7 +85,11 @@ public class LvlManager : MonoBehaviour
             agentsDestroyd = 0;
         }
     }
+    public void GiveGold(float time)
+    {
 
+        shoper.gold += (int)time;
+    }
     public void LvlAtributes()
     {
         if (lvl == 1)
