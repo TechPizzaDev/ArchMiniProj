@@ -11,7 +11,7 @@ public class UI_Shop : MonoBehaviour
     IShopCustomer shopCustomer;
     public TMP_Text goldText;
     public TMP_Text ingridentsText;
-    [SerializeField] Shoper shoper;
+    [SerializeField] Shopper shoper;
     LvlManager lvlManager;
     private List<Button> itemButtons = new List<Button>();
 
@@ -27,17 +27,17 @@ public class UI_Shop : MonoBehaviour
 
     private void Start()
     {
-        CreateItemButton(Item.ItemType.Ingridents, Item.GetSprite(Item.ItemType.Ingridents), "Ingridents", Item.GetCost(Item.ItemType.Ingridents), 0);
-        CreateItemButton(Item.ItemType.Radio, Item.GetSprite(Item.ItemType.Radio), "Radio", Item.GetCost(Item.ItemType.Radio), 1);
-        CreateItemButton(Item.ItemType.GoldenSpatula, Item.GetSprite(Item.ItemType.GoldenSpatula), "Golden Spatula", Item.GetCost(Item.ItemType.GoldenSpatula), 2);
-        CreateItemButton(Item.ItemType.Marketing, Item.GetSprite(Item.ItemType.Marketing), "Marketing", Item.GetCost(Item.ItemType.Marketing), -1);
-        CreateItemButton(Item.ItemType.Bell, Item.GetSprite(Item.ItemType.Bell), "Bell", Item.GetCost(Item.ItemType.Bell), -2);
+        CreateItemButton(ItemType.Ingridents, Item.GetSprite(ItemType.Ingridents), "Ingridents", Item.GetCost(ItemType.Ingridents), 0);
+        CreateItemButton(ItemType.Radio, Item.GetSprite(ItemType.Radio), "Radio", Item.GetCost(ItemType.Radio), 1);
+        CreateItemButton(ItemType.GoldenSpatula, Item.GetSprite(ItemType.GoldenSpatula), "Golden Spatula", Item.GetCost(ItemType.GoldenSpatula), 2);
+        CreateItemButton(ItemType.Marketing, Item.GetSprite(ItemType.Marketing), "Marketing", Item.GetCost(ItemType.Marketing), -1);
+        CreateItemButton(ItemType.Bell, Item.GetSprite(ItemType.Bell), "Bell", Item.GetCost(ItemType.Bell), -2);
 
         Hide();
       
     }
 
-    private void CreateItemButton(Item.ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
+    private void CreateItemButton(ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
     {
         Transform shopItemTransform = Instantiate(shopItemTemplate, container);
         RectTransform shopItemRectTransform = shopItemTransform.GetComponent<RectTransform>();
@@ -57,7 +57,7 @@ public class UI_Shop : MonoBehaviour
     }
 
 
-    public void TryBuyItem(Item.ItemType itemType)
+    public void TryBuyItem(ItemType itemType)
     {
         if(shopCustomer.TrySpendGoldAmount(Item.GetCost(itemType)))
         {

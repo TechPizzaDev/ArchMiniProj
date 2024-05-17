@@ -11,7 +11,7 @@ public class LvlManager : MonoBehaviour
     public int ingridents = 1;
     public Button nextLvlButton;
     [SerializeField] UI_Shop uiShop;
-    [SerializeField] Shoper shoper;
+    [SerializeField] Shopper shoper;
     public bool shopOpen;
     public TMP_Text lvlText;
     public TMP_Text ingridentsText;
