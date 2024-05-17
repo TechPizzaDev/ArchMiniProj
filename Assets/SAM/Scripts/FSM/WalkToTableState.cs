@@ -7,8 +7,8 @@ public class WalkToTableState : BaseState
 {
 
     
-    Transform chosenTable;
-    float moveSpeed = 5f;
+    Transform chosenSeat;
+  
     bool tableFound = false;
     
     
@@ -17,12 +17,9 @@ public class WalkToTableState : BaseState
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered WalkToTableState...");
+        agent.walking = true;
 
 
-        //tables = agent.tables;
-        //System.Random random = new System.Random();
-        //int randomNr = random.Next(0, 4);
-        //chosenTable = tables[randomNr];
     }
 
 
@@ -35,10 +32,12 @@ public class WalkToTableState : BaseState
 
             if (agent.seatManager[i].SeatAvailable() == true)
             {
-                chosenTable = agent.seats[i];
+                chosenSeat = agent.seats[i];
+                agent.chosenSeat = chosenSeat;
                 agent.seatManager[i].OccupySeat();
                 agent.int_chosenTable = i;
                 tableFound = true;
+                
 
                 break;
             }
@@ -47,19 +46,38 @@ public class WalkToTableState : BaseState
 
         if(tableFound == true)
         {
-            Vector2 targetPosition = chosenTable.position;
-
-            agent.transform.position = Vector2.MoveTowards(agent.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            if (Vector2.Distance(agent.transform.position, targetPosition) < 0.1f)
-            {
-                agent.SwitchState(agent.sittingState);
-            }
-
+            
+            SetDestination(agent);
         }
 
 
-        
+        void SetDestination(StateManager agent)
+        {
+
+            if (agent.navMeshAgent == null)
+            {
+                Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
+                return;
+            }
+
+            if (!agent.navMeshAgent.isOnNavMesh)
+            {
+                Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
+                return;
+            }
+            
+            
+            agent.navMeshAgent.destination = new Vector3(chosenSeat.position.x, chosenSeat.position.y + 0.25f, chosenSeat.position.z);
+          
+
+            if (Vector3.Distance(agent.navMeshAgent.nextPosition, chosenSeat.position) < 1f)
+            {
+                agent.walking = false;
+                agent.SwitchState(agent.sittingState);
+
+            }
+
+        }
 
     }
 

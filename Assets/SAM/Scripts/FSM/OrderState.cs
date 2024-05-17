@@ -33,8 +33,8 @@ public class OrderState : BaseState
 
     public override void UpdateState(StateManager agent)
     {
-        
 
+        agent.SittingDirection();
 
 
         timer -= Time.deltaTime;
@@ -55,15 +55,13 @@ public class OrderState : BaseState
         }
 
 
-        //DETTA ÄR EXEMPELKOD PÅ EN ORDER VISUALISERING, KOMMER ATT ÄNDRAS.
 
-        //agent.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 
     private void OrderEmote_OnClick(EmoteEntry emote, bool userAction)
     {
 
-        //DENNA METODEN DUBBELKLICKAR VARJE GÅNG, VILKET DEN INTE FÅR GÖRA FÖR NÄRVARANDE. VÄNLIGEN FIXA!
+
         emote.Close(true);
 
         

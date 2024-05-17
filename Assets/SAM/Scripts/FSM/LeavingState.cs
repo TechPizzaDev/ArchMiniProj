@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class LeavingState : BaseState
@@ -8,16 +9,23 @@ public class LeavingState : BaseState
     float timer = 0;
     bool leftTable = false;
     float moveSpeed = 5f;
+    Transform navPosition;
 
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered LeavingState...");
         timer = waitTime;
+        navPosition = agent.leavingStorePosition.transform;
+        agent.walking = true;
+
     }
 
 
     public override void UpdateState(StateManager agent)
     {
+        
+
+
         if (agent.isAnnoyed)
         {
             //lägg in irriterad animation eller textur här.
@@ -39,18 +47,37 @@ public class LeavingState : BaseState
 
             if (leftTable == true)
             {
-                Vector2 targetPosition = agent.leavingStorePosition.transform.position;
+                SetDestination(agent);
 
-                agent.transform.position = Vector2.MoveTowards(agent.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-                if (Vector2.Distance(agent.transform.position, targetPosition) < 0.1f)
-                {
-                    //agent dör.
-                }
             }
         }
 
-        
+        if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 1f)
+        {
+
+            agent.SelfDestruct();
+
+        }
+
+    }
+    void SetDestination(StateManager agent)
+    {
+
+        if (agent.navMeshAgent == null)
+        {
+            Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
+            return;
+        }
+
+        if (!agent.navMeshAgent.isOnNavMesh)
+        {
+            Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
+            return;
+        }
+
+
+        agent.navMeshAgent.destination = navPosition.position;
+
 
 
     }
