@@ -26,8 +26,8 @@ public class StateManager : MonoBehaviour
 
 
     public GameObject timerBarPrefab;
-    private GameObject timerBarInstance;
-    private Slider timerBarSlider;
+    public GameObject timerBarInstance;
+    public TimerBar timerBar;
 
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
@@ -41,10 +41,13 @@ public class StateManager : MonoBehaviour
     public bool isAngry = false;
     public float timeLeftOnOrder;
     public int waitingTime = 120;
+    public int eatingTime = 60;
 
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public bool walking;
+    public Vector3 popupPosition = new Vector3(0, 0.5f, 0);
+    public Color lightBlue;
 
     void Start()
     {
@@ -55,12 +58,8 @@ public class StateManager : MonoBehaviour
         navMeshAgent.updateUpAxis = false;
 
 
-
-        //timerBarScript.SetMaxTime(waitingTime);
-
-
         canvas = GameObject.FindWithTag("WorldCanvas").GetComponent<Canvas>();
-        SpawnTimerBar();
+        
 
 
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
@@ -91,9 +90,7 @@ public class StateManager : MonoBehaviour
         //Animator
         AnimationDirection();
 
-        //TimerBar
-
-        timerBarInstance.transform.position = transform.position;
+        
 
 
 
@@ -125,9 +122,13 @@ public class StateManager : MonoBehaviour
         return timeLeftOnOrder;
     }
 
-    public void SelfDestruct()
+    public void DestroyCustomer()
     {
         Destroy(gameObject);
+        
+    }
+    public void DestroyTimeBar()
+    {
         Destroy(timerBarInstance);
     }
 
@@ -161,11 +162,13 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    void SpawnTimerBar()
+    public void SpawnTimerBar()
     {
         Debug.Log("spawned bar");
         timerBarInstance = Instantiate(timerBarPrefab, transform.position, Quaternion.identity, canvas.transform);
-        timerBarSlider = timerBarInstance.GetComponent<Slider>();
+        
+
+        timerBar = timerBarInstance.GetComponent<TimerBar>();
     }
 
 }

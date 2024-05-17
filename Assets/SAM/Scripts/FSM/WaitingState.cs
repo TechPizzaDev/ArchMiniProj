@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WaitingState : BaseState
 {
@@ -13,40 +14,40 @@ public class WaitingState : BaseState
     {
         Debug.Log("Entered WaitingState...");
         timer = agent.waitingTime;
-        agent.isAnnoyed = false;
+        
         agent.timeLeftOnOrder = timer;
+        agent.SpawnTimerBar();
+        agent.timerBar.SetMaxTime(agent.waitingTime);
     }
 
 
     public override void UpdateState(StateManager agent)
     {
         agent.SittingDirection();
-        //agent.timerBar.SetTime(timer);
+
+        //TimerBar Position
+
+        agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition;
+
 
         timer -= Time.deltaTime;
         agent.timeLeftOnOrder -= Time.deltaTime;
 
 
-        agent.transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+        agent.timerBar.SetTime(timer);
 
-
-
-        if (timer < 60 && timer > 30)
+        if (timer < (agent.waitingTime*0.75f) && timer > (agent.waitingTime/3))
         {
-            rotationSpeed = 150f;
-            //implementera irriterad textur/animation
 
-            agent.isAnnoyed = true;
+            agent.timerBar.timerColor.color = Color.yellow;
 
         }
-        else if (timer < 30 && timer > 0)
+        else if (timer < (agent.waitingTime/3) && timer > 0)
         {
-            rotationSpeed = 250;
-            //implementera arg textur/animation
-            agent.isAnnoyed = false;
-            agent.isAngry = true;
+            agent.timerBar.timerColor.color = Color.red;
+            
         }
-        else if (timer < 0)
+        else if (timer <= 0)
         {
             agent.SwitchState(agent.standingUpState);
         }

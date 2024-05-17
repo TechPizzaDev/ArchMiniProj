@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class TimerBar : MonoBehaviour
 {
     public Slider slider;
-    
+
+    public Image timerColor;
 
     public void SetTime(float time)
     {

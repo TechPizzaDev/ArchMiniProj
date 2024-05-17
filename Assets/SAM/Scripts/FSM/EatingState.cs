@@ -14,9 +14,9 @@ public class EatingState : BaseState
 
         //Implementera ätanimation.
         //stäng av eventuell annoyed/angry state.
-        timer = waitTime;
-        agent.isAnnoyed = false;
-        agent.isAngry = false;
+        timer = agent.eatingTime;
+        agent.timerBar.timerColor.color = agent.lightBlue;
+        agent.timerBar.SetMaxTime(agent.eatingTime);
     }
 
 
@@ -24,9 +24,13 @@ public class EatingState : BaseState
     {
         agent.SittingDirection();
 
-        agent.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition;
+
+        agent.timerBar.SetTime(timer);
 
         timer -= Time.deltaTime;
+
+
 
         if (timer < 0)
         {
