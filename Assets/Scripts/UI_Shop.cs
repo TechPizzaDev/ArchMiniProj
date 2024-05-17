@@ -21,8 +21,10 @@ public class UI_Shop : MonoBehaviour
 
     private void Start()
     {
-        CreateItemButton(Item.ItemType.Firer, Item.GetSprite(Item.ItemType.Firer), "Frier", Item.GetCost(Item.ItemType.Firer), 0);
-        CreateItemButton(Item.ItemType.SadwichMaker, Item.GetSprite(Item.ItemType.SadwichMaker), "Sandwich", Item.GetCost(Item.ItemType.SadwichMaker), 1);
+        CreateItemButton(Item.ItemType.Ingridents, Item.GetSprite(Item.ItemType.Ingridents), "Ingridents", Item.GetCost(Item.ItemType.Ingridents), 0);
+        CreateItemButton(Item.ItemType.Radio, Item.GetSprite(Item.ItemType.Radio), "Radio", Item.GetCost(Item.ItemType.Radio), 1);
+        CreateItemButton(Item.ItemType.GoldenSpatula, Item.GetSprite(Item.ItemType.GoldenSpatula), "Golden Spatula", Item.GetCost(Item.ItemType.GoldenSpatula), 2);
+        CreateItemButton(Item.ItemType.Marketing, Item.GetSprite(Item.ItemType.Marketing), "Marketing", Item.GetCost(Item.ItemType.Marketing), -1);
 
         Hide();
     }
@@ -51,10 +53,12 @@ public class UI_Shop : MonoBehaviour
             // money to spend
             shopCustomer.BoughtItem(itemType);
             goldText.text = "Gold " + shoper.gold;
-        }
-           
+        }           
     }
-
+    public void UpdadteGolde()
+    {
+        goldText.text = "Gold " + shoper.gold;
+    }
     public void Show(IShopCustomer shopCustomer)
     {
         this.shopCustomer = shopCustomer;

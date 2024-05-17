@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0bf062492fa1c44b415191ee671cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Frier: {fileID: 21300000, guid: 000fdb070c0bdc1459f06eb8c138e878, type: 3}
-  Head: {fileID: 21300000, guid: b52cdc405eb90fc478bd859a511b2b33, type: 3}
+  Ingridents: {fileID: 21300000, guid: 918c7647bef89bd42a7c1309423a8d4d, type: 3}
+  Radio: {fileID: 21300000, guid: 0b7f2ae1650700d428ef37ca6bb75611, type: 3}
+  GoldenSpatula: {fileID: 21300000, guid: 7a5b7b0a3c692bc48978d4a2e96071f6, type: 3}
+  Marketing: {fileID: 21300000, guid: 52676193296059640bc2672d64751ed8, type: 3}

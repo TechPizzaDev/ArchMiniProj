@@ -7,17 +7,18 @@ public class LvlManager : MonoBehaviour
 {
     public int lvl;
     public static int agentsDestroyd;
-
+    public int ingridents = 1;
     public Button nextLvlButton;
     [SerializeField] UI_Shop uiShop;
     [SerializeField] Shoper shoper;
     public bool shopOpen;
     public TMP_Text lvlText;
+    public TMP_Text ingridentsText;
     public TMP_Text goldText;
     [SerializeField] float levelDuration = 50f;
     [SerializeField] float levelDurationIncerace = 10f;
     CustomerManager customerManager;
-    [SerializeField] int customersThisLvl;
+    public int customersThisLvl;
     [SerializeField] int customerIncreas = 1;
     public float callInterval = 5f;
     public float callIntervalDecreas = 1f;
@@ -33,7 +34,8 @@ public class LvlManager : MonoBehaviour
         LvlAtributes();
         nextLvlButton.gameObject.SetActive(true);
         agentsDestroyd = 0;
-        StartNewLvl();
+        ingridentsText.text = " " + ingridents;
+
     }
 
     void ActivateStuff()
@@ -45,7 +47,11 @@ public class LvlManager : MonoBehaviour
             uiShop.Show(shopCustomer);
         }
     }
-
+    public void GetGold(float time)
+    {
+        shoper.gold += (int)time;
+        uiShop.UpdadteGolde();
+    }
     public void OpneShop()
     {
         nextLvlButton.gameObject.SetActive(false);
@@ -113,6 +119,8 @@ public class LvlManager : MonoBehaviour
     void LevelComplete()
     {
         Debug.Log("Level Complete!");
+        ingridents -= lvl/2;
+        ingridentsText.text = " " + ingridents;
         shopOpen = true;
         lvl++;
         if (lvl < 6)
@@ -127,6 +135,12 @@ public class LvlManager : MonoBehaviour
 
     public void StartNewLvl()
     {
+        if(ingridents <= 0)
+        {
+            // lose. You forgot to buy ingridents
+            Debug.Log(" YOU LOST ");
+        }
+        ingridentsText.text = " "+ ingridents;
         lvlText.text = "Lvl " + lvl;
         LvlAtributes();
         StartCoroutine(CustomerSpawn());

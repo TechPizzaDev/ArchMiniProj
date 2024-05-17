@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour
 {
+    LvlManager lvlManager;
 
     //--------------------SUBKLASSER--------------------------------
 
@@ -52,7 +53,7 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
-
+        lvlManager = FindAnyObjectByType<LvlManager>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
@@ -125,6 +126,12 @@ public class StateManager : MonoBehaviour
 
     public void DestroyCustomer()
     {
+        // conceting to lvl manager Arvid
+        if (lvlManager != null)
+        {
+            lvlManager.GetGold(timeLeftOnOrder);
+            lvlManager.AgentDestroyed();
+        }
         Destroy(gameObject);
         
     }
