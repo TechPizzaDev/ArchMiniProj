@@ -39,7 +39,7 @@ public class StateManager : MonoBehaviour
     public int int_chosenTable;
     public bool isAnnoyed = false;
     public bool isAngry = false;
-    public float timeLeftOnOrder;
+    public float timeLeftOnOrder = 0;
     public int waitingForOrderTime = 60;
     public int waitingForFoodTime = 120;
     public int eatingTime = 60;
