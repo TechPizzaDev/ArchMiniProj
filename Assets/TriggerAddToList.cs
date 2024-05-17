@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TriggerAddToList : MonoBehaviour
 {
-    public SandwichManager manager;
+    public StationManager manager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

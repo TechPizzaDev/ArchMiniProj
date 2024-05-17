@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5525330729604056746}
-  - component: {fileID: -4739649931295799649}
+  - component: {fileID: 2031912632430178999}
   m_Layer: 0
   m_Name: Burgir
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 3821277866911042341}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4739649931295799649
+--- !u!114 &2031912632430178999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,6 +126,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5222308320202107414}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b83ed9311e1af124088ae899c107c077, type: 3}
+  m_Script: {fileID: 11500000, guid: c7384a54d7525784dba974a6b6456d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

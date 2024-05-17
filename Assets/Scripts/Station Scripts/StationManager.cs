@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//MMM = Mack Maker Manager ;)
-
-public class SandwichManager : MonoBehaviour
+public class StationManager : MonoBehaviour
 {
     GameObject objectInHand;
 
@@ -73,6 +71,7 @@ public class SandwichManager : MonoBehaviour
                 else if (ingredient is IngredientSmoothie)
                 {
                     selectedDict = smoothieIngredients;
+                    objectInHand.GetComponent<Rigidbody2D>().isKinematic = false;
                 }
 
                 if (hit.collider == selectedArea && TryPlace(selectedDict, selectedArea == null ? Vector3.zero : selectedArea.transform.position, objectInHand))
@@ -82,8 +81,6 @@ public class SandwichManager : MonoBehaviour
                 {
                     Destroy(objectInHand);
                 }
-
-                objectInHand.GetComponent<Rigidbody2D>().isKinematic = false;
 
                 objectInHand = null;
             }
@@ -170,31 +167,41 @@ public class SandwichManager : MonoBehaviour
         return false;
     }
 
-    private static void FinishedItem(GameObject prefab, Dictionary<Ingredient, List<GameObject>> dict)
+    private static bool FinishedItem(GameObject prefab, ref Dictionary<Ingredient, List<GameObject>> dict)
     {
         if (dict.Count == 0)
         {
-            return;
+            return false;
         }
 
         GameObject instance = Instantiate(prefab);
         instance.GetComponent<OrderedItem>().ingredients = dict;
 
-        DestroyObjectsInDict(dict);
+        dict = new Dictionary<Ingredient, List<GameObject>>();
+        return true;
     }
 
     public void FinishedSandwich()
     {
-        FinishedItem(orderedSandwich, sandwichIngredients);
+        if (!FinishedItem(orderedSandwich, ref sandwichIngredients))
+        {
+            return;
+        }
+
+        var renderer = currentSandwich.GetComponentInChildren<SpriteRenderer>();
+        renderer.sortingOrder += 1;
 
         currentSandwich.isFinished = true;
         currentSandwich.rigidBody.AddForce(new Vector2(0, 1000));
+
         currentSandwich = SpawnVisual();
     }
 
     public void FinishedSmoothie()
     {
-        FinishedItem(orderedSmoothie, smoothieIngredients);
+        DestroyObjectsInDict(smoothieIngredients);
+
+        FinishedItem(orderedSmoothie, ref smoothieIngredients);
 
         Debug.Log("Finished smoothie.");
     }
