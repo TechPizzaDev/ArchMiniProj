@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
-using System;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour
 {
@@ -28,6 +22,7 @@ public class StateManager : MonoBehaviour
     public Transform[] seats;
     public Transform chosenSeat;
     public NavMeshAgent navMeshAgent;
+    public Canvas canvas;
 
 
     public GameObject timerBarPrefab;
@@ -53,7 +48,7 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
-        SpawnTimerBar();
+
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
@@ -64,7 +59,10 @@ public class StateManager : MonoBehaviour
         //timerBarScript.SetMaxTime(waitingTime);
 
 
-        
+        canvas = GameObject.FindWithTag("WorldCanvas").GetComponent<Canvas>();
+        SpawnTimerBar();
+
+
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
         enterStorePosition = GameObject.Find("EnteredStorePosition");
         seats = new Transform[seatNames.Length];
@@ -93,11 +91,11 @@ public class StateManager : MonoBehaviour
         //Animator
         AnimationDirection();
 
-      //TimerBar
-        
-        timerBarInstance.transform.position=transform.position;
-        
-        
+        //TimerBar
+
+        timerBarInstance.transform.position = transform.position;
+
+
 
 
 
@@ -136,7 +134,7 @@ public class StateManager : MonoBehaviour
     public void AnimationDirection()
     {
         //Flippar gubben åt rätt håll när han går någonstans.
-        if (transform.position.x < navMeshAgent.destination.x && walking==true)
+        if (transform.position.x < navMeshAgent.destination.x && walking == true)
         {
             //Debug.Log("going right");
             //walking = true;
@@ -166,8 +164,8 @@ public class StateManager : MonoBehaviour
     void SpawnTimerBar()
     {
         Debug.Log("spawned bar");
-        timerBarInstance= Instantiate(timerBarPrefab, transform.position, Quaternion.identity);
+        timerBarInstance = Instantiate(timerBarPrefab, transform.position, Quaternion.identity, canvas.transform);
         timerBarSlider = timerBarInstance.GetComponent<Slider>();
     }
-    
+
 }

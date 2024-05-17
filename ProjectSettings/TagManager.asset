@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Agent
+  - WorldCanvas
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
     locked: 0
   - name: Over
     uniqueID: 2851979033
+    locked: 0
+  - name: UI
+    uniqueID: 3133993795
     locked: 0

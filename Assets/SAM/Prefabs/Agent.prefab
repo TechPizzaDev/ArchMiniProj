@@ -98,19 +98,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 036b8d80b56198e4fa8e30f068a60663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1096581051402526685}
-  tables: []
-  tableNames:
-  - Table1
-  - Table2
-  - Table3
-  - Table4
-  tableManager: []
+  seats: []
+  chosenSeat: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  timerBarPrefab: {fileID: 0}
+  seatManager: []
   leavingStorePosition: {fileID: 0}
+  enterStorePosition: {fileID: 0}
   int_chosenTable: 0
   isAnnoyed: 0
   isAngry: 0
   timeLeftOnOrder: 0
+  waitingTime: 120
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  walking: 0
 --- !u!61 &2871639822405716075
 BoxCollider2D:
   m_ObjectHideFlags: 0
