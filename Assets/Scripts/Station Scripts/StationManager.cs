@@ -7,7 +7,7 @@ public class StationManager : MonoBehaviour
 
     public GameObject visualPrefab;
     public VisualSandwich currentSandwich;
-    public VisualBlender currentSmoothie;
+    public VisualBlender blender;
     public GameObject orderedSandwich;
     public GameObject orderedSmoothie;
 
@@ -43,7 +43,7 @@ public class StationManager : MonoBehaviour
             }
             else if (hit.collider.gameObject.TryGetComponent(out IngredientSmoothie ingredientSmoothie))
             {
-                objectInHand = Instantiate(ingredientSmoothie.prefab, currentSmoothie.transform, true);
+                objectInHand = Instantiate(ingredientSmoothie.prefab, blender.transform, true);
                 objectInHand.AddComponent<IngredientHolder>().value = ingredientSmoothie;
                 objectInHand.GetComponent<Rigidbody2D>().isKinematic = true;
             }
@@ -199,11 +199,46 @@ public class StationManager : MonoBehaviour
 
     public void FinishedSmoothie()
     {
-        DestroyObjectsInDict(smoothieIngredients);
+        Dictionary<Ingredient, List<GameObject>> previousDict = smoothieIngredients;
 
-        FinishedItem(orderedSmoothie, ref smoothieIngredients);
+        if (FinishedItem(orderedSmoothie, ref smoothieIngredients))
+        {
+            var spriteList = new List<(Color startColor, SpriteRenderer sprite)>();
+            foreach (var list in previousDict.Values)
+            {
+                foreach (var obj in list)
+                {
+                    Rigidbody2D rigid = obj.GetComponent<Rigidbody2D>();
+                    rigid.isKinematic = true;
+                    rigid.velocity = new Vector2(0, 0);
 
-        Debug.Log("Finished smoothie.");
+                    foreach (var collider in obj.GetComponentsInChildren<Collider2D>())
+                    {
+                        collider.enabled = false;
+                    }
+
+                    foreach (var sprite in obj.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        spriteList.Add((sprite.color, sprite));
+                    }
+                }
+            }
+
+            blender.PlayBlending(progress =>
+            {
+                foreach ((Color startColor, SpriteRenderer sprite) in spriteList)
+                {
+                    sprite.color = Color.Lerp(startColor, new Color(1, 1, 1, 0), progress);
+                }
+
+                if (progress >= 1f)
+                {
+                    DestroyObjectsInDict(previousDict);
+                }
+            });
+
+            Debug.Log("Finished smoothie.");
+        }
     }
 
     public static void DestroyObjectsInDict(Dictionary<Ingredient, List<GameObject>> dict)
