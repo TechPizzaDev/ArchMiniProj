@@ -19,7 +19,7 @@ public class OrderState : BaseState
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered OrderState");
-        timer = waitTime;
+        timer = agent.waitingForOrderTime;
         //Implementera order animation/Textur.
 
         if (orderEmote != null)

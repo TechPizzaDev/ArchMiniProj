@@ -40,7 +40,8 @@ public class StateManager : MonoBehaviour
     public bool isAnnoyed = false;
     public bool isAngry = false;
     public float timeLeftOnOrder;
-    public int waitingTime = 120;
+    public int waitingForOrderTime = 60;
+    public int waitingForFoodTime = 120;
     public int eatingTime = 60;
 
     public Animator animator;

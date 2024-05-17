@@ -13,11 +13,11 @@ public class WaitingState : BaseState
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered WaitingState...");
-        timer = agent.waitingTime;
+        timer = agent.waitingForFoodTime;
         
         agent.timeLeftOnOrder = timer;
         agent.SpawnTimerBar();
-        agent.timerBar.SetMaxTime(agent.waitingTime);
+        agent.timerBar.SetMaxTime(agent.waitingForFoodTime);
     }
 
 
@@ -36,13 +36,13 @@ public class WaitingState : BaseState
 
         agent.timerBar.SetTime(timer);
 
-        if (timer < (agent.waitingTime*0.75f) && timer > (agent.waitingTime/3))
+        if (timer < (agent.waitingForFoodTime*0.75f) && timer > (agent.waitingForFoodTime/3))
         {
 
             agent.timerBar.timerColor.color = Color.yellow;
 
         }
-        else if (timer < (agent.waitingTime/3) && timer > 0)
+        else if (timer < (agent.waitingForFoodTime/3) && timer > 0)
         {
             agent.timerBar.timerColor.color = Color.red;
             
