@@ -104,6 +104,10 @@ MonoBehaviour:
   seats: []
   chosenSeat: {fileID: 0}
   navMeshAgent: {fileID: 0}
+  canvas: {fileID: 0}
+  timerBarPrefab: {fileID: 8756359371096676503, guid: 898226c94cc5e4f41a6de12bca2af23a, type: 3}
+  timerBarInstance: {fileID: 0}
+  timerBar: {fileID: 0}
   seatManager: []
   leavingStorePosition: {fileID: 0}
   enterStorePosition: {fileID: 0}
@@ -111,9 +115,13 @@ MonoBehaviour:
   isAnnoyed: 0
   isAngry: 0
   timeLeftOnOrder: 0
+  waitingTime: 10
+  eatingTime: 10
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   walking: 0
+  popupPosition: {x: 0, y: 0.5, z: 0}
+  lightBlue: {r: 0, g: 0.7345861, b: 0.7830189, a: 1}
 --- !u!195 &3649823335037978888
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -7,8 +7,11 @@ public class Item
     
     public enum ItemType
     {
-        Firer,
-        SadwichMaker,
+        Ingridents,
+        Radio,
+        Marketing,
+        GoldenSpatula
+            
 
     }
 
@@ -17,8 +20,10 @@ public class Item
         switch (itemType)
         {
             default: 
-                case ItemType.Firer: return 20;
-                case ItemType.SadwichMaker: return 30;
+                case ItemType.Ingridents: return 100;
+                case ItemType.Radio: return 500;
+                case ItemType.Marketing: return 200;
+                case ItemType.GoldenSpatula: return 2000;
         }
     }
 
@@ -27,8 +32,10 @@ public class Item
         switch(itemType)
         {
             default:
-            case ItemType.Firer: return GameAssets.i.Frier;
-            case ItemType.SadwichMaker: return GameAssets.i.Head;
+            case ItemType.Ingridents: return GameAssets.i.Ingridents;
+            case ItemType.Radio: return GameAssets.i.Radio;
+            case ItemType.Marketing: return GameAssets.i.Marketing;
+            case ItemType.GoldenSpatula: return GameAssets.i.GoldenSpatula;
         }
     }
 }

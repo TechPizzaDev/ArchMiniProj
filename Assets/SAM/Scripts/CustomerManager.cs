@@ -11,7 +11,7 @@ public class CustomerManager : MonoBehaviour
     public Transform spawnPos;
     Vector2 vec2SpawnPos;
 
-    private void Start()
+    private void Awake()
     {
         if (emoteManager == null)
             emoteManager = FindObjectOfType<EmoteManager>();

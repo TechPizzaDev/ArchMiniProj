@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameAssets : MonoBehaviour
 {
-    public Sprite Frier;
-    public Sprite Head;
+    public Sprite Ingridents;
+    public Sprite Radio;
+    public Sprite GoldenSpatula;
+    public Sprite Marketing;
 
     private static GameAssets _i;
 
