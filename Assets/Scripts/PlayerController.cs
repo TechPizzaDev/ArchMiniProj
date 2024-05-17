@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,8 +13,8 @@ public class PlayerController : MonoBehaviour
 
     NavMeshAgent navMeshAgent;
 
-    float horizontal;
-    float vertical;
+    LineRenderer lineRenderer;
+    Vector3[] walkPointBuffer = new Vector3[16];
 
     public float runSpeed = 20.0f;
 
@@ -25,77 +23,71 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
         //body = GetComponent<Rigidbody2D>();
+
+        lineRenderer = destinationPoint.GetComponent<LineRenderer>();
     }
 
     void Update()
     {
-        SetDestination();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SetDestination();
+        }
+
         if (Vector3.Distance(navMeshAgent.nextPosition, transform.position) < 0.5f)
         {
             walking = false;
         }
+
         if (transform.position.x < navMeshAgent.destination.x)
         {
             //Debug.Log("going right");
             walking = true;
             spriteRenderer.flipX = false;
         }
-        if (transform.position.x > navMeshAgent.destination.x)
+        else if (transform.position.x > navMeshAgent.destination.x)
         {
             //Debug.Log("going left");
             walking = true;
             spriteRenderer.flipX = true;
         }
-    }
 
-    private void FixedUpdate()
-    {
+        anim.SetBool("walking", walking);
 
         if (walking)
         {
-            anim.SetBool("walking", true);
+            int count = navMeshAgent.path.GetCornersNonAlloc(walkPointBuffer);
+            lineRenderer.positionCount = count;
+            lineRenderer.SetPositions(walkPointBuffer.AsSpan(0, count).ToArray());
+            lineRenderer.enabled = true;
         }
         else
         {
-            anim.SetBool("walking", false);
+            lineRenderer.enabled = false;
         }
-
-
     }
-    //body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
-
 
     void SetDestination()
     {
-
-        navMeshAgent.destination = destinationPoint.position;
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Vector3 mousePos = Input.mousePosition;
-            {
-                mousePos.z = Camera.main.nearClipPlane; // Use the near clip plane of the camera
-
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-
-                destinationPoint.position = new Vector3(worldPos.x, worldPos.y, 0f);
-                //Debug.Log(worldPos.x);
-                //Debug.Log(worldPos.y);
-                //Debug.Log(worldPos.z);
-
-            }
-        }
         if (navMeshAgent == null)
         {
             Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
             return;
         }
+
+        Vector3 mousePos = Input.mousePosition;
+
+        mousePos.z = Camera.main.nearClipPlane; // Use the near clip plane of the camera
+
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        destinationPoint.position = new Vector3(worldPos.x, worldPos.y, 0f);
+
+        navMeshAgent.destination = destinationPoint.position;
 
         if (!navMeshAgent.isOnNavMesh)
         {
