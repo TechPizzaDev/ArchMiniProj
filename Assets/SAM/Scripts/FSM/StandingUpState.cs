@@ -15,6 +15,7 @@ public class StandingUpState : BaseState
 
         agent.transform.rotation = Quaternion.identity;
         //stäng av ät animation.
+        agent.DestroyTimeBar();
 
     }
 

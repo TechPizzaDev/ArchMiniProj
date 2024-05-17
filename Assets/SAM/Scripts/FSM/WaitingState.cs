@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WaitingState : BaseState
 {
 
     float rotationSpeed = 50f;
-    float waitTime = 5;
+    
     float timer = 0;
 
     public override void EnterState(StateManager agent)
     {
         Debug.Log("Entered WaitingState...");
-        timer = waitTime;
-        agent.isAnnoyed = false;
-        agent.timeLeftOnOrder = waitTime;
+        timer = agent.waitingTime;
+        
+        agent.timeLeftOnOrder = timer;
+        agent.SpawnTimerBar();
+        agent.timerBar.SetMaxTime(agent.waitingTime);
     }
 
 
@@ -22,31 +25,29 @@ public class WaitingState : BaseState
     {
         agent.SittingDirection();
 
+        //TimerBar Position
+
+        agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition;
+
 
         timer -= Time.deltaTime;
         agent.timeLeftOnOrder -= Time.deltaTime;
 
 
-        agent.transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+        agent.timerBar.SetTime(timer);
 
-
-
-        if (timer < 60 && timer > 30)
+        if (timer < (agent.waitingTime*0.75f) && timer > (agent.waitingTime/3))
         {
-            rotationSpeed = 150f;
-            //implementera irriterad textur/animation
 
-            agent.isAnnoyed = true;
+            agent.timerBar.timerColor.color = Color.yellow;
 
         }
-        else if (timer < 30 && timer > 0)
+        else if (timer < (agent.waitingTime/3) && timer > 0)
         {
-            rotationSpeed = 250;
-            //implementera arg textur/animation
-            agent.isAnnoyed = false;
-            agent.isAngry = true;
+            agent.timerBar.timerColor.color = Color.red;
+            
         }
-        else if (timer < 0)
+        else if (timer <= 0)
         {
             agent.SwitchState(agent.standingUpState);
         }
@@ -54,9 +55,14 @@ public class WaitingState : BaseState
         // TODO: hur ska vi ge kunderna färdig mat?
         //       skapa en klickbar emote när mat är klar?
         //       låt kunder gå fram och plocka up?
-        bool orderReady = agent.timeLeftOnOrder < (waitTime - 1);
 
-        if (orderReady && Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
+        // Sam: När ordern är färdig, håller spelaren i tallriken, och leverar maten till kunden,
+        // genom att klicka på rätt kund och vänta tills kunden når fram.
+        // Endast då blir "orderDelivered" true.
+
+        bool orderDelivered = true;
+
+        if (orderDelivered && Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
         {
             // Cast a ray from the mouse position
             RaycastHit2D hit = RayHelper.RaycastFromCamera(Input.mousePosition);
