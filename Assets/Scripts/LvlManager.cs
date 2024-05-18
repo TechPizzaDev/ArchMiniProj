@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LvlManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class LvlManager : MonoBehaviour
     public TMP_Text lvlText;
     public TMP_Text ingridentsText;
     public TMP_Text goldText;
+    public TMP_Text customerText;
     [SerializeField] float levelDuration = 50f;
     [SerializeField] float levelDurationIncerace = 10f;
     CustomerManager customerManager;
@@ -22,6 +24,9 @@ public class LvlManager : MonoBehaviour
     [SerializeField] int customerIncreas = 1;
     public float callInterval = 5f;
     public float callIntervalDecreas = 1f;
+
+    public float incomeIncrease = 1f;
+    public float income = 100;
 
     private void Awake()
     {
@@ -34,7 +39,8 @@ public class LvlManager : MonoBehaviour
         LvlAtributes();
         nextLvlButton.gameObject.SetActive(true);
         agentsDestroyd = 0;
-        ingridentsText.text = " " + ingridents;
+     
+        UpdateText();
 
         //Debug shop
         shoper.gold += 3000;
@@ -102,7 +108,7 @@ public class LvlManager : MonoBehaviour
     public void GiveGold(float time)
     {
 
-        shoper.gold += (int)time;
+        shoper.gold += (int)(income * time * incomeIncrease);
     }
     public void LvlAtributes()
     {
@@ -127,7 +133,7 @@ public class LvlManager : MonoBehaviour
     void LevelComplete()
     {
         Debug.Log("Level Complete!");
-        ingridents -= lvl/2;
+        ingridents -= customersThisLvl;
         ingridentsText.text = " " + ingridents;
         shopOpen = true;
         lvl++;
@@ -138,6 +144,7 @@ public class LvlManager : MonoBehaviour
         levelDuration += levelDurationIncerace;
         customersThisLvl += customerIncreas;
         ActivateStuff();
+        UpdateText();
 
     }
 
@@ -147,6 +154,7 @@ public class LvlManager : MonoBehaviour
         {
             // lose. You forgot to buy ingridents
             Debug.Log(" YOU LOST ");
+            SceneManager.LoadSceneAsync(3);
         }
         ingridentsText.text = " "+ ingridents;
         lvlText.text = "Lvl " + lvl;
@@ -154,9 +162,10 @@ public class LvlManager : MonoBehaviour
         StartCoroutine(CustomerSpawn());
     }
 
-    void UpdateIngridents()
+    public void UpdateText()
     {
         ingridentsText.text = " " + ingridents;
         lvlText.text = "Lvl " + lvl;
+        customerText.text = "Costumers Expected " + customersThisLvl;
     }
 }

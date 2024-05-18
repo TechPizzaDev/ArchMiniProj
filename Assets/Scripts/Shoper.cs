@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Shoper : MonoBehaviour, IShopCustomer
 {
@@ -9,6 +10,7 @@ public class Shoper : MonoBehaviour, IShopCustomer
     public bool soundOn = false;
     public bool bellOn = false;
     UI_Shop uiShop;
+    [SerializeField] float incomeI = 1.1f;
     void Start()
     {
         lvlManager = FindAnyObjectByType<LvlManager>();
@@ -21,12 +23,14 @@ public class Shoper : MonoBehaviour, IShopCustomer
         if(itemType == Item.ItemType.Marketing)
         {
             lvlManager.customersThisLvl++;
+           
 
         }
         else if(itemType == Item.ItemType.Radio)
         {
             soundOn = true;
             uiShop.HideButton(1);
+            lvlManager.incomeIncrease = incomeI;
             // sett på musik
         }
         else if (itemType == Item.ItemType.Bell)
@@ -41,8 +45,10 @@ public class Shoper : MonoBehaviour, IShopCustomer
         }
         else if (itemType == Item.ItemType.GoldenSpatula)
         {
+            SceneManager.LoadSceneAsync(2);
             // Win the Game
         }
+        lvlManager.UpdateText();
     }
 
     public bool TrySpendGoldAmount(int spendGoldAmount)

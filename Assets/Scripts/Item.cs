@@ -22,7 +22,7 @@ public class Item
             default: 
                 case ItemType.Ingridents: return 100;
                 case ItemType.Radio: return 500;
-                case ItemType.Marketing: return 200;
+                case ItemType.Marketing: return 50;
                 case ItemType.GoldenSpatula: return 2000;
                 case ItemType.Bell: return 300;
         }
