@@ -9,12 +9,12 @@ public class Shoper : MonoBehaviour, IShopCustomer
     LvlManager lvlManager;
     public bool soundOn = false;
     public bool bellOn = false;
-    UI_Shop uiShop;
+   // UI_Shop uiShop;
     [SerializeField] float incomeI = 1.1f;
     void Start()
     {
         lvlManager = FindAnyObjectByType<LvlManager>();
-        uiShop = FindAnyObjectByType<UI_Shop>();
+       // uiShop = FindAnyObjectByType<UI_Shop>();
     }
     public void BoughtItem(Item.ItemType itemType)
     {
@@ -29,14 +29,15 @@ public class Shoper : MonoBehaviour, IShopCustomer
         else if(itemType == Item.ItemType.Radio)
         {
             soundOn = true;
-            uiShop.HideButton(1);
+
+            lvlManager.ButtonFix(1);
             lvlManager.incomeIncrease = incomeI;
             // sett på musik
         }
         else if (itemType == Item.ItemType.Bell)
         {
             bellOn = true;
-            uiShop.HideButton(4);
+            lvlManager.ButtonFix(4);
             // sett på musik
         }
         else if (itemType == Item.ItemType.Ingridents)
