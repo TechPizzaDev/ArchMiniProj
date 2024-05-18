@@ -25,6 +25,7 @@ public class UI_Shop : MonoBehaviour
         CreateItemButton(Item.ItemType.Radio, Item.GetSprite(Item.ItemType.Radio), "Radio", Item.GetCost(Item.ItemType.Radio), 1);
         CreateItemButton(Item.ItemType.GoldenSpatula, Item.GetSprite(Item.ItemType.GoldenSpatula), "Golden Spatula", Item.GetCost(Item.ItemType.GoldenSpatula), 2);
         CreateItemButton(Item.ItemType.Marketing, Item.GetSprite(Item.ItemType.Marketing), "Marketing", Item.GetCost(Item.ItemType.Marketing), -1);
+        CreateItemButton(Item.ItemType.Bell, Item.GetSprite(Item.ItemType.Bell), "Bell", Item.GetCost(Item.ItemType.Bell), -2);
 
         Hide();
     }

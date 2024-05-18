@@ -8,6 +8,7 @@ public class GameAssets : MonoBehaviour
     public Sprite Radio;
     public Sprite GoldenSpatula;
     public Sprite Marketing;
+    public Sprite Bell;
 
     private static GameAssets _i;
 

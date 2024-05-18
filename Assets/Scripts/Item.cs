@@ -10,8 +10,8 @@ public class Item
         Ingridents,
         Radio,
         Marketing,
-        GoldenSpatula
-            
+        GoldenSpatula,
+        Bell,           
 
     }
 
@@ -24,6 +24,7 @@ public class Item
                 case ItemType.Radio: return 500;
                 case ItemType.Marketing: return 200;
                 case ItemType.GoldenSpatula: return 2000;
+                case ItemType.Bell: return 300;
         }
     }
 
@@ -36,6 +37,7 @@ public class Item
             case ItemType.Radio: return GameAssets.i.Radio;
             case ItemType.Marketing: return GameAssets.i.Marketing;
             case ItemType.GoldenSpatula: return GameAssets.i.GoldenSpatula;
+            case ItemType.Bell: return GameAssets.i.Bell;
         }
     }
 }
