@@ -77,6 +77,11 @@ public class LvlManager : MonoBehaviour
 
         while (callsMade < customersThisLvl)
         {
+            if(shoper.bellOn)
+            {
+                SoundManager.Instance.BellSound.Play();
+            }
+           
             customerManager.Spawn();
             callsMade++;
             yield return new WaitForSeconds(callInterval);
