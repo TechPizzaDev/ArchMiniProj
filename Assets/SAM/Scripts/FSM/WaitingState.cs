@@ -6,18 +6,19 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class WaitingState : BaseState
 {
 
-    float rotationSpeed = 50f;
+
     
     float timer = 0;
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered WaitingState...");
+        //Debug.Log("Entered WaitingState...");
         timer = agent.waitingForFoodTime;
-        
+      
         agent.timeLeftOnOrder = timer;
-        agent.SpawnTimerBar();
+        
         agent.timerBar.SetMaxTime(agent.waitingForFoodTime);
+        agent.timerBar.timerColor.color = Color.green;
     }
 
 

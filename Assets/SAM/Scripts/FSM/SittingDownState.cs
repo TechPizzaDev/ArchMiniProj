@@ -13,7 +13,7 @@ public class SittingDownState : BaseState
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered SittingDownState...");
+        //Debug.Log("Entered SittingDownState...");
 
         timer = waitTime;
 

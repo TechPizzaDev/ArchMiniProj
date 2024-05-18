@@ -10,7 +10,7 @@ public class StandingUpState : BaseState
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered StandingUpState...");
+        //Debug.Log("Entered StandingUpState...");
         timer = waitTime;
 
         agent.transform.rotation = Quaternion.identity;
@@ -23,15 +23,6 @@ public class StandingUpState : BaseState
     public override void UpdateState(StateManager agent)
     {
 
-
-        if(agent.isAnnoyed==true)
-        {
-            //lägg in irriterad animation eller textur här.
-        }
-        else if (agent.isAngry==true)
-        {
-            //lägg in arg animation/textur.
-        }
 
         if (timer < 0)
         {

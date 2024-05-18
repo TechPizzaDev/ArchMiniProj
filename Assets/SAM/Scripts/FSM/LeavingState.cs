@@ -8,12 +8,11 @@ public class LeavingState : BaseState
     float waitTime = 1;
     float timer = 0;
     bool leftTable = false;
-    float moveSpeed = 5f;
     Transform navPosition;
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered LeavingState...");
+        //Debug.Log("Entered LeavingState...");
         timer = waitTime;
         navPosition = agent.leavingStorePosition.transform;
         agent.walking = true;
@@ -23,17 +22,7 @@ public class LeavingState : BaseState
 
     public override void UpdateState(StateManager agent)
     {
-        
-
-
-        if (agent.isAnnoyed)
-        {
-            //lägg in irriterad animation eller textur här.
-        }
-        else if (agent.isAngry)
-        {
-            //lägg in arg animation eller textur här.
-        }
+    
 
         timer -= Time.deltaTime;
 

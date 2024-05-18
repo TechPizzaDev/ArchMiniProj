@@ -10,17 +10,22 @@ public class OrderState : BaseState
     public event Action<EmoteEntry>? OnAnnounceOrder;
     public event Action<OrderEntry>? OnCommitOrder;
 
-    float rotationSpeed = 75f;
-    float waitTime = 15;
+    
+    
     float timer = 0;
 
     private EmoteEntry? orderEmote;
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered OrderState");
+        //Debug.Log("Entered OrderState");
         timer = agent.waitingForOrderTime;
-        //Implementera order animation/Textur.
+        
+
+        agent.SpawnTimerBar();
+        agent.timerBar.SetMaxTime(agent.waitingForOrderTime);
+        agent.timerBar.timerColor.color = agent.purple;
+
 
         if (orderEmote != null)
             orderEmote.Close(false);
@@ -39,10 +44,8 @@ public class OrderState : BaseState
 
         timer -= Time.deltaTime;
 
-        if (timer < waitTime / 2 && timer > 0)
-        {
-            agent.isAnnoyed = true;
-        }
+        agent.timerBar.SetTime(timer);
+        agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition+ new Vector3(0,0.15f,0);
 
 
 

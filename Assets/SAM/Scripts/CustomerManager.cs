@@ -24,10 +24,11 @@ public class CustomerManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Spawn();
-        }
+        //Implementera för att testa snabbt:
+        //if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    Spawn();
+        //}
     }
 
    public void Spawn()

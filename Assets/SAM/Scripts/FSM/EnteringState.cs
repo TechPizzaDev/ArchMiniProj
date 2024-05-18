@@ -19,7 +19,7 @@ public class EnteringState : BaseState
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered EnteringState...");
+        //Debug.Log("Entered EnteringState...");
         navPosition = agent.enterStorePosition.transform;
         
         timer = waitTime;
@@ -71,19 +71,5 @@ public class EnteringState : BaseState
 
 
     }
-    //public void animationDirection(StateManager agent)
-    //{
-    //    if (agent.transform.position.x < agent.navMeshAgent.destination.x)
-    //    {
-    //        Debug.Log("going right");
-    //        agent.walking = true;
-    //        agent.spriteRenderer.flipX = false;
-    //    }
-    //    if (agent.transform.position.x > agent.navMeshAgent.destination.x)
-    //    {
-    //        Debug.Log("going left");
-    //        agent.walking = true;
-    //        agent.spriteRenderer.flipX = true;
-    //    }
-    //}
+  
 }

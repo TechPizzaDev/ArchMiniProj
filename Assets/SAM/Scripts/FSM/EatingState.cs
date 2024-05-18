@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class EatingState : BaseState
 {
-    float rotationSpeed = 50f;
-    float waitTime = 15;
+    
     float timer = 0;
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered EatingState...");
+        //Debug.Log("Entered EatingState...");
 
-        //Implementera ätanimation.
-        //stäng av eventuell annoyed/angry state.
+        
         timer = agent.eatingTime;
         agent.timerBar.timerColor.color = agent.lightBlue;
         agent.timerBar.SetMaxTime(agent.eatingTime);

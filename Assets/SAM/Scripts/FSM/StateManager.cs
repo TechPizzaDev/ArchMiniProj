@@ -32,7 +32,7 @@ public class StateManager : MonoBehaviour
 
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
-    //public SpriteRenderer[] seatSprite;
+    
     public GameObject leavingStorePosition;
     public GameObject enterStorePosition;
 
@@ -50,6 +50,7 @@ public class StateManager : MonoBehaviour
     public bool walking;
     public Vector3 popupPosition = new Vector3(0, 0.5f, 0);
     public Color lightBlue;
+    public Color purple;
 
     void Start()
     {
@@ -146,13 +147,13 @@ public class StateManager : MonoBehaviour
         if (transform.position.x < navMeshAgent.destination.x && walking == true)
         {
             //Debug.Log("going right");
-            //walking = true;
+            
             spriteRenderer.flipX = false;
         }
         if (transform.position.x > navMeshAgent.destination.x && walking == true)
         {
             //Debug.Log("going left");
-            //walking = true;
+            
             spriteRenderer.flipX = true;
         }
     }

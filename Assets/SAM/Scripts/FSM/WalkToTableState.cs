@@ -16,7 +16,7 @@ public class WalkToTableState : BaseState
 
     public override void EnterState(StateManager agent)
     {
-        Debug.Log("Entered WalkToTableState...");
+        //Debug.Log("Entered WalkToTableState...");
         agent.walking = true;
 
 
