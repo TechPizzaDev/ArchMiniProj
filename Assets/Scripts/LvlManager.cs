@@ -109,10 +109,10 @@ public class LvlManager : MonoBehaviour
             SoundManager.Instance.BuySound.Play();
         }
     }
-    public void GiveGold(float time)
+    public void ButtonFix(int n)
     {
 
-        
+        uiShop.HideButton(n);
     }
     public void LvlAtributes()
     {
