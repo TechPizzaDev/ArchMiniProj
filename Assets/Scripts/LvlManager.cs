@@ -139,7 +139,7 @@ public class LvlManager : MonoBehaviour
         ingridentsText.text = " " + ingridents;
         shopOpen = true;
         lvl++;
-        if (lvl < 6)
+        if (lvl < 3 && callInterval > 3)
         {
             callInterval -= callIntervalDecreas;
         }
