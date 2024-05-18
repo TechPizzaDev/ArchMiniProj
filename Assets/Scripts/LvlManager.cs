@@ -105,6 +105,7 @@ public class LvlManager : MonoBehaviour
         {
             LevelComplete();
             agentsDestroyd = 0;
+            SoundManager.Instance.BuySound.Play();
         }
     }
     public void GiveGold(float time)
