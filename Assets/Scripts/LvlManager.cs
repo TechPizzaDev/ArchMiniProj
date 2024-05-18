@@ -36,6 +36,9 @@ public class LvlManager : MonoBehaviour
         agentsDestroyd = 0;
         ingridentsText.text = " " + ingridents;
 
+        //Debug shop
+        shoper.gold += 3000;
+        ActivateStuff();
     }
 
     void ActivateStuff()
@@ -50,7 +53,7 @@ public class LvlManager : MonoBehaviour
     public void GetGold(float time)
     {
         shoper.gold += (int)time;
-        uiShop.UpdadteGolde();
+        uiShop.UpdadtNumbers();
     }
     public void OpneShop()
     {
@@ -144,5 +147,11 @@ public class LvlManager : MonoBehaviour
         lvlText.text = "Lvl " + lvl;
         LvlAtributes();
         StartCoroutine(CustomerSpawn());
+    }
+
+    void UpdateIngridents()
+    {
+        ingridentsText.text = " " + ingridents;
+        lvlText.text = "Lvl " + lvl;
     }
 }

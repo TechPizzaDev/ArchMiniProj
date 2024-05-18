@@ -6,10 +6,13 @@ public class Shoper : MonoBehaviour, IShopCustomer
 {
     public int gold = 50;
     LvlManager lvlManager;
-
+    public bool soundOn = false;
+    public bool bellOn = false;
+    UI_Shop uiShop;
     void Start()
     {
         lvlManager = FindAnyObjectByType<LvlManager>();
+        uiShop = FindAnyObjectByType<UI_Shop>();
     }
     public void BoughtItem(Item.ItemType itemType)
     {
@@ -22,6 +25,14 @@ public class Shoper : MonoBehaviour, IShopCustomer
         }
         else if(itemType == Item.ItemType.Radio)
         {
+            soundOn = true;
+            uiShop.HideButton(1);
+            // sett på musik
+        }
+        else if (itemType == Item.ItemType.Bell)
+        {
+            bellOn = true;
+            uiShop.HideButton(4);
             // sett på musik
         }
         else if (itemType == Item.ItemType.Ingridents)

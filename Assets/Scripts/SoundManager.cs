@@ -7,7 +7,10 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; set; }
 
     public AudioSource BellSound;
-  
+
+    public AudioSource BuySound;
+    public AudioSource DeclineSound;
+
 
     public AudioClip Shoot;
 
@@ -25,11 +28,6 @@ public class SoundManager : MonoBehaviour
         }
     }
    
-    public void PlayShootingSound()
-    {
-
-        BellSound.PlayOneShot(Shoot);
-
-    }
+   
 
 }
