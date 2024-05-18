@@ -45,6 +45,7 @@ public class LvlManager : MonoBehaviour
         //Debug shop
         shoper.gold += 3000;
         ActivateStuff();
+        GetGold(0.6f);
     }
 
     void ActivateStuff()
@@ -58,7 +59,8 @@ public class LvlManager : MonoBehaviour
     }
     public void GetGold(float time)
     {
-        shoper.gold += (int)time;
+        shoper.gold += (int)(income * time * incomeIncrease);
+      
         uiShop.UpdadtNumbers();
     }
     public void OpneShop()
@@ -108,7 +110,7 @@ public class LvlManager : MonoBehaviour
     public void GiveGold(float time)
     {
 
-        shoper.gold += (int)(income * time * incomeIncrease);
+        
     }
     public void LvlAtributes()
     {

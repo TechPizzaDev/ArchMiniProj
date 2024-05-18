@@ -20,11 +20,11 @@ public class Item
         switch (itemType)
         {
             default: 
-                case ItemType.Ingridents: return 100;
-                case ItemType.Radio: return 500;
-                case ItemType.Marketing: return 50;
-                case ItemType.GoldenSpatula: return 2000;
-                case ItemType.Bell: return 300;
+                case ItemType.Ingridents: return 40;
+                case ItemType.Radio: return 400;
+                case ItemType.Marketing: return 40;
+                case ItemType.GoldenSpatula: return 1500;
+                case ItemType.Bell: return 100;
         }
     }
 
