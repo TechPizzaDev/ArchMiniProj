@@ -41,11 +41,12 @@ public class LvlManager : MonoBehaviour
         agentsDestroyd = 0;
      
         UpdateText();
+        shoper.gold += 100;
 
         //Debug shop
-        shoper.gold += 3000;
-        ActivateStuff();
-        GetGold(0.6f);
+        //shoper.gold += 3000;
+        //ActivateStuff();
+        //GetGold(0.6f);
     }
 
     void ActivateStuff()
