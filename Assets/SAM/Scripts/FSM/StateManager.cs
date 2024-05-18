@@ -68,14 +68,14 @@ public class StateManager : MonoBehaviour
         enterStorePosition = GameObject.Find("EnteredStorePosition");
         seats = new Transform[seatNames.Length];
         seatManager = new SeatManager[seats.Length];
-        //seatSprite = new SpriteRenderer[seats.Length];
+        
 
         for (int i = 0; i < seatNames.Length; i++)
         {
             GameObject patrolPointObj = GameObject.Find(seatNames[i]);
             seats[i] = patrolPointObj.transform;
             seatManager[i] = seats[i].GetComponent<SeatManager>();
-            //seatSprite[i] = seats[i].GetComponent<SpriteRenderer>();
+            
         }
 
         currentState = enteringState;
@@ -121,7 +121,7 @@ public class StateManager : MonoBehaviour
 
     public float GetTimeLeftOnOrder()
     {
-        return timeLeftOnOrder;
+        return (timeLeftOnOrder/(float)waitingForFoodTime);
     }
 
     public void DestroyCustomer()
@@ -129,7 +129,7 @@ public class StateManager : MonoBehaviour
         // conceting to lvl manager Arvid
         if (lvlManager != null)
         {
-            lvlManager.GetGold(timeLeftOnOrder);
+            lvlManager.GetGold(GetTimeLeftOnOrder());
             lvlManager.AgentDestroyed();
         }
         Destroy(gameObject);
