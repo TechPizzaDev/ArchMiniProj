@@ -4,7 +4,7 @@ public class VisualBlender : MonoBehaviour
 {
     public delegate void ParticleTick(float progress);
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem particles;
 
     private ParticleTick tickAction;
     private float openTime;
@@ -14,7 +14,7 @@ public class VisualBlender : MonoBehaviour
 
     void Start()
     {
-        particleSystem = GetComponentInChildren<ParticleSystem>();
+        particles = GetComponentInChildren<ParticleSystem>();
 
         cover.SetActive(false);
     }
@@ -24,7 +24,7 @@ public class VisualBlender : MonoBehaviour
         tickAction?.Invoke(0);
         tickAction = finishAction;
 
-        particleSystem.Play();
+        particles.Play();
         cover.SetActive(true);
         openTime = 0;
     }
@@ -33,7 +33,7 @@ public class VisualBlender : MonoBehaviour
     {
         if (tickAction != null)
         {
-            float progress = particleSystem.totalTime / particleSystem.main.duration;
+            float progress = particles.totalTime / particles.main.duration;
             tickAction.Invoke(progress);
 
             if (progress >= 1)
