@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; set; }
 
+    public AudioSource radioMusic;
+
     public AudioSource BellSound;
 
     public AudioSource BuySound;
     public AudioSource DeclineSound;
-
 
     public AudioClip Shoot;
 
@@ -27,7 +29,14 @@ public class SoundManager : MonoBehaviour
             Instance = this;
         }
     }
-   
-   
+
+    public void StartRadio()
+    {
+        if(radioMusic.isPlaying == false && Shoper.soundOn)
+            radioMusic.Play();
+        
+    }
+
+
 
 }

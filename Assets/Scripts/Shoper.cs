@@ -7,7 +7,7 @@ public class Shoper : MonoBehaviour, IShopCustomer
 {
     public int gold = 50;
     LvlManager lvlManager;
-    public bool soundOn = false;
+    public static bool soundOn = false;
     public bool bellOn = false;
    // UI_Shop uiShop;
     [SerializeField] float incomeI = 1.1f;
@@ -29,6 +29,7 @@ public class Shoper : MonoBehaviour, IShopCustomer
         else if(itemType == Item.ItemType.Radio)
         {
             soundOn = true;
+            
 
             lvlManager.ButtonFix(1);
             lvlManager.incomeIncrease = incomeI;
