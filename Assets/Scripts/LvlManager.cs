@@ -39,7 +39,7 @@ public class LvlManager : MonoBehaviour
         LvlAtributes();
         nextLvlButton.gameObject.SetActive(true);
         agentsDestroyd = 0;
-     
+
         UpdateText();
         shoper.gold += 100;
 
@@ -58,12 +58,14 @@ public class LvlManager : MonoBehaviour
             uiShop.Show(shopCustomer);
         }
     }
+
     public void GetGold(float time)
     {
-        shoper.gold += (int)(income * time * incomeIncrease);
-      
+        shoper.gold += (int) (income * time * incomeIncrease);
+
         uiShop.UpdadtNumbers();
     }
+
     public void OpneShop()
     {
         nextLvlButton.gameObject.SetActive(false);
@@ -86,11 +88,11 @@ public class LvlManager : MonoBehaviour
 
         while (callsMade < customersThisLvl)
         {
-            if(shoper.bellOn)
+            if (shoper.bellOn)
             {
                 SoundManager.Instance.BellSound.Play();
             }
-           
+
             customerManager.Spawn();
             callsMade++;
             yield return new WaitForSeconds(callInterval);
@@ -109,11 +111,13 @@ public class LvlManager : MonoBehaviour
             SoundManager.Instance.BuySound.Play();
         }
     }
+
     public void ButtonFix(int n)
     {
 
         uiShop.HideButton(n);
     }
+
     public void LvlAtributes()
     {
         if (lvl == 1)
@@ -130,7 +134,7 @@ public class LvlManager : MonoBehaviour
         {
             // other level attributes
         }
-        Debug.Log(levelDuration);
+        //Debug.Log(levelDuration);
         goldText.text = "Gold " + shoper.gold;
     }
 
@@ -154,13 +158,13 @@ public class LvlManager : MonoBehaviour
 
     public void StartNewLvl()
     {
-        if(ingridents <= 0)
+        if (ingridents <= 0)
         {
             // lose. You forgot to buy ingridents
             Debug.Log(" YOU LOST ");
             SceneManager.LoadSceneAsync(3);
         }
-        ingridentsText.text = " "+ ingridents;
+        ingridentsText.text = " " + ingridents;
         lvlText.text = "Lvl " + lvl;
         LvlAtributes();
         StartCoroutine(CustomerSpawn());

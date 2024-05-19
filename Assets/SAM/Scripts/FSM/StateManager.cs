@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class StateManager : MonoBehaviour
 {
@@ -32,7 +31,7 @@ public class StateManager : MonoBehaviour
 
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
     public SeatManager[] seatManager;
-    
+
     public GameObject leavingStorePosition;
     public GameObject enterStorePosition;
 
@@ -48,7 +47,7 @@ public class StateManager : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     public bool walking;
-    public Vector3 popupPosition = new Vector3(0, 0.5f, 0);
+    public Vector3 popupPosition;
     public Color lightBlue;
     public Color purple;
 
@@ -62,21 +61,21 @@ public class StateManager : MonoBehaviour
 
 
         canvas = GameObject.FindWithTag("WorldCanvas").GetComponent<Canvas>();
-        
+
 
 
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
         enterStorePosition = GameObject.Find("EnteredStorePosition");
         seats = new Transform[seatNames.Length];
         seatManager = new SeatManager[seats.Length];
-        
+
 
         for (int i = 0; i < seatNames.Length; i++)
         {
             GameObject patrolPointObj = GameObject.Find(seatNames[i]);
             seats[i] = patrolPointObj.transform;
             seatManager[i] = seats[i].GetComponent<SeatManager>();
-            
+
         }
 
         currentState = enteringState;
@@ -93,7 +92,6 @@ public class StateManager : MonoBehaviour
         //Animator
         AnimationDirection();
 
-
         if (walking)
         {
             animator.SetBool("walking", true);
@@ -104,10 +102,7 @@ public class StateManager : MonoBehaviour
         }
 
         currentState.UpdateState(this);
-
     }
-
-
 
     public void SwitchState(BaseState state)
     {
@@ -117,7 +112,7 @@ public class StateManager : MonoBehaviour
 
     public float GetTimeLeftOnOrder()
     {
-        return (timeLeftOnOrder/(float)waitingForFoodTime);
+        return (timeLeftOnOrder / (float) waitingForFoodTime);
     }
 
     public void DestroyCustomer()
@@ -129,8 +124,8 @@ public class StateManager : MonoBehaviour
             lvlManager.AgentDestroyed();
         }
         Destroy(gameObject);
-        
     }
+
     public void DestroyTimeBar()
     {
         Destroy(timerBarInstance);
@@ -142,13 +137,13 @@ public class StateManager : MonoBehaviour
         if (transform.position.x < navMeshAgent.destination.x && walking == true)
         {
             //Debug.Log("going right");
-            
+
             spriteRenderer.flipX = false;
         }
         if (transform.position.x > navMeshAgent.destination.x && walking == true)
         {
             //Debug.Log("going left");
-            
+
             spriteRenderer.flipX = true;
         }
     }
@@ -168,9 +163,8 @@ public class StateManager : MonoBehaviour
 
     public void SpawnTimerBar()
     {
-        Debug.Log("spawned bar");
+        //Debug.Log("spawned bar");
         timerBarInstance = Instantiate(timerBarPrefab, transform.position, Quaternion.identity, canvas.transform);
-        
 
         timerBar = timerBarInstance.GetComponent<TimerBar>();
     }
