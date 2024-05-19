@@ -1,86 +1,30 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 #nullable enable
 
 public class EmoteManager : MonoBehaviour
 {
-    [SerializeField]
-    private List<EmoteEntry> emotes = new();
+    public Canvas worldCanvas;
 
     public GameObject EmoteTemplate;
 
+    public Vector3 emotePosition;
+
     void Start()
     {
-
+        worldCanvas = GameObject.FindGameObjectWithTag("WorldCanvas").GetComponent<Canvas>();
     }
 
-    void Update()
+    public T InstantiateEmote<T>(GameObject? source)
+        where T : EmoteEntry
     {
-        foreach (EmoteEntry entry in emotes)
-        {
-            if (entry.Source.IsDestroyed())
-            {
-                entry.Close(false);
-            }
-        }
+        GameObject obj = Instantiate(EmoteTemplate, worldCanvas.transform);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            EmoteEntry? entry = GetEntryAt(Input.mousePosition);
-            if (entry != null)
-            {
-                entry.Click(true);
-            }
-        }
-    }
+        T entry = obj.AddComponent<T>();
+        entry.Source = source;
 
-    public void InstantiateEmote(EmoteEntry entry)
-    {
-        entry.Entity = Instantiate(EmoteTemplate, entry.Source.transform);
-        //entry.Entity.transform.localPosition = new Vector3(0, 1, 0);
-        entry.Entity.transform.localPosition = new Vector3(0, 0.125f, 0); //Justerade avståndet bara - Sam
+        entry.position = emotePosition;
 
-        AddEmote(entry);
-    }
-
-    public void AddEmote(EmoteEntry entry)
-    {
-        entry.OnClose += Entry_OnClose;
-        emotes.Add(entry);
-    }
-
-    private void Entry_OnClose(EmoteEntry entry, bool userAction)
-    {
-        if (!emotes.Remove(entry))
-        {
-            Debug.LogError("Entry closed while not added to manager", entry.Source);
-            return;
-        }
-        entry.OnClose -= Entry_OnClose;
-
-        Destroy(entry.Entity);
-    }
-
-    public EmoteEntry? GetEntryAt(Vector3 position)
-    {
-        RaycastHit2D hit = RayHelper.RaycastFromCamera(position);
-
-        Collider2D collider = hit.collider;
-        if (collider == null)
-        {
-            return null;
-        }
-
-        GameObject obj = collider.gameObject;
-        foreach (EmoteEntry entry in emotes)
-        {
-            if (entry.Entity == obj)
-            {
-                return entry;
-            }
-        }
-        return null;
+        return entry;
     }
 }

@@ -1,17 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 #nullable enable
 
 public class OrderState : BaseState
 {
-    public event Action<EmoteEntry>? OnAnnounceOrder;
-    public event Action<OrderEntry>? OnCommitOrder;
+    public Func<GameObject?, EmoteEntry> announceOrder = null!;
+    public Func<GameObject?, EmoteEntry> commitOrder = null!;
 
-    
-    
+
+
     float timer = 0;
 
     private EmoteEntry? orderEmote;
@@ -20,7 +19,7 @@ public class OrderState : BaseState
     {
         //Debug.Log("Entered OrderState");
         timer = agent.waitingForOrderTime;
-        
+
 
         agent.SpawnTimerBar();
         agent.timerBar.SetMaxTime(agent.waitingForOrderTime);
@@ -28,59 +27,41 @@ public class OrderState : BaseState
 
 
         if (orderEmote != null)
-            orderEmote.Close(false);
+            orderEmote.Close(null);
 
-        orderEmote = new EmoteEntry(agent.gameObject);
+        orderEmote = announceOrder.Invoke(agent.gameObject);
         orderEmote.OnClick += OrderEmote_OnClick;
-        orderEmote.OnClose += OrderEmote_OnClose;
-        OnAnnounceOrder?.Invoke(orderEmote);
     }
 
     public override void UpdateState(StateManager agent)
     {
-
         agent.SittingDirection();
 
 
         timer -= Time.deltaTime;
 
         agent.timerBar.SetTime(timer);
-        agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition+ new Vector3(0,0.15f,0);
+        agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition;
 
 
 
         if (timer < 0)
         {
             if (orderEmote != null)
-                orderEmote.Close(false);
+                orderEmote.Close(null);
 
             agent.SwitchState(agent.standingUpState);
         }
-
-
-
     }
 
-    private void OrderEmote_OnClick(EmoteEntry emote, bool userAction)
+    private void OrderEmote_OnClick(EmoteEntry emote, PointerEventData? eventData)
     {
-
-
-        emote.Close(true);
-
-        
-    }
-
-    private void OrderEmote_OnClose(EmoteEntry emote, bool userAction)
-    {
-        if (!userAction)
+        var agent = emote.Source == null ? null : emote.Source.GetComponent<StateManager>();
+        if (agent != null)
         {
-            return;
+            commitOrder.Invoke(agent.gameObject);
+
+            agent.SwitchState(agent.waitingState);
         }
-
-        var agent = emote.Source.GetComponent<StateManager>();
-
-        OnCommitOrder?.Invoke(new OrderEntry(agent));
-
-        agent.SwitchState(agent.waitingState);
     }
 }

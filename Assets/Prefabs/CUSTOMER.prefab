@@ -121,7 +121,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   walking: 0
-  popupPosition: {x: 0, y: 0.5, z: 0}
+  popupPosition: {x: 0, y: 0.4, z: 0}
   lightBlue: {r: 0, g: 0.7345861, b: 0.7830189, a: 1}
   purple: {r: 0.65938854, g: 0, b: 1, a: 1}
 --- !u!195 &3649823335037978888

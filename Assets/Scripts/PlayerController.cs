@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -36,7 +37,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            SetDestination();
+            // Don't set dest if user clicked something on UI.
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                SetDestination();
+            }
         }
 
         if (Vector3.Distance(navMeshAgent.nextPosition, transform.position) < 0.5f)

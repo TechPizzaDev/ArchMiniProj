@@ -1,12 +1,12 @@
-﻿using System;
-
-[Serializable]
-public class OrderEntry
+﻿
+public class OrderEntry : EmoteEntry
 {
-    public StateManager Customer { get; }
+    public StateManager Customer { get; set; }
 
-    public OrderEntry(StateManager customer)
+    protected override void Start()
     {
-        Customer = customer != null ? customer : throw new ArgumentNullException(nameof(customer));
+        base.Start();
+
+        Customer = Source.GetComponent<StateManager>();
     }
 }

@@ -31,12 +31,19 @@ public class CustomerManager : MonoBehaviour
         //}
     }
 
-   public void Spawn()
+    public void Spawn()
     {
         GameObject spawnedObject = Instantiate(agent, vec2SpawnPos, Quaternion.identity);
 
         var stateManager = spawnedObject.GetComponent<StateManager>();
-        stateManager.orderState.OnAnnounceOrder += emoteManager.InstantiateEmote;
-        stateManager.orderState.OnCommitOrder += orderManager.AddOrder;
+        
+        stateManager.orderState.announceOrder += emoteManager.InstantiateEmote<EmoteEntry>;
+
+        stateManager.orderState.commitOrder += (src) =>
+        {
+            var emote = emoteManager.InstantiateEmote<OrderEntry>(src);
+            orderManager.AddOrder(emote);
+            return emote;
+        };
     }
 }

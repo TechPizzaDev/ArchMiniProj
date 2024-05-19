@@ -1,30 +1,79 @@
-﻿using System;
+﻿using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public delegate void EmoteDelegate(EmoteEntry entry, bool userAction);
+#nullable enable
 
-[Serializable]
-public class EmoteEntry
+public delegate void EmoteDelegate(EmoteEntry entry, PointerEventData? eventData);
+
+public class EmoteEntry : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject Source { get; }
+    public bool followSource = true;
+    public bool destroyOnClick = true;
 
-    public GameObject Entity { get; set; }
+    public Vector3 position;
 
-    public event EmoteDelegate OnClick;
-    public event EmoteDelegate OnClose;
+    public GameObject? Source { get; set; }
 
-    public EmoteEntry(GameObject source)
+    public event EmoteDelegate? OnClick;
+    public event EmoteDelegate? OnClose;
+
+    public virtual bool IsClickingEvent(PointerEventData eventData)
     {
-        Source = source != null ? source : throw new ArgumentNullException(nameof(source));
+        return eventData.button == PointerEventData.InputButton.Left;
     }
 
-    public void Click(bool userAction)
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-        OnClick?.Invoke(this, userAction);
+        if (IsClickingEvent(eventData))
+        {
+            Click(eventData);
+        }
     }
 
-    public void Close(bool userAction)
+    public void Click(PointerEventData? eventData)
     {
-        OnClose?.Invoke(this, userAction);
+        OnClick?.Invoke(this, eventData);
+
+        if (destroyOnClick)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Close(PointerEventData? eventData)
+    {
+        OnClose?.Invoke(this, eventData);
+    }
+
+    protected virtual void Start()
+    {
+        UpdatePosition();
+    }
+
+    void Update()
+    {
+        if (followSource)
+        {
+            if (Source.IsDestroyed())
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            UpdatePosition();
+        }
+    }
+
+    void UpdatePosition()
+    {
+        Vector3 targetPosition = position;
+
+        if (followSource && Source != null)
+        {
+            targetPosition += Source.transform.position;
+        }
+
+        transform.position = targetPosition;
     }
 }
