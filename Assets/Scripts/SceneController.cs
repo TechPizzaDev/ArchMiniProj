@@ -19,49 +19,7 @@ public class SceneController : MonoBehaviour
         stationCams = sceneRoot.roots.First(r => r.scene.buildIndex == stationSceneIndex).cameraDescs;
 
         currentCam = playerCam;
-
-        //var activeListObjects = sceneRoot.ac GameObject.FindGameObjectsWithTag("ActiveList");
-        //
-        //playerCameraDesc.activeList = activeListObjects
-        //    .First(obj => obj.scene.buildIndex == playerCameraDesc.sceneBuildIndex)
-        //    .GetComponent<ActiveList>();
-        //
-        //playerCameraDesc.activeList.Apply(true);
-        //
-        //cameraDescs.ForEach(desc =>
-        //{
-        //    desc.activeList = activeListObjects
-        //        .First(obj => obj.scene.buildIndex == desc.sceneBuildIndex)
-        //        .GetComponent<ActiveList>();
-        //
-        //    desc.activeList.Apply(false);
-        //});
     }
-
-    //void Awake()
-    //{
-    //    SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-    //    SceneManager.sceneUnloaded += SceneManager_sceneUnloaded;
-    //}
-    //
-    //private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-    //{
-    //
-    //}
-    //
-    //private void SceneManager_sceneUnloaded(Scene arg0)
-    //{
-    //    GameDisableList.ForEach(obj => obj.SetActive(true));
-    //}
-
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    if (StationBuildIndex == 0)
-    //    {
-    //        throw new Exception("Station index may not be 0.");
-    //    }
-    //}
 
     // Update is called once per frame
     void Update()
@@ -107,16 +65,6 @@ public class SceneController : MonoBehaviour
             SceneRoot nextRoot = GetRoot(cameraDesc.sceneIndex);
             nextRoot.SetObjectsActive(true);
         }
-
-        //if (stationIndex == -1)
-        //{
-        //    SceneManager.UnloadSceneAsync(StationBuildIndex);
-        //}
-        //else
-        //{
-        //    LoadSceneParameters param = new(LoadSceneMode.Additive, LocalPhysicsMode.Physics2D);
-        //    SceneManager.LoadSceneAsync(StationBuildIndex, param);
-        //}
 
         currentCam = cameraDesc;
     }
