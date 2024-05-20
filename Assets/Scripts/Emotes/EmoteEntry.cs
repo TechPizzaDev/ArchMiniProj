@@ -31,9 +31,14 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void Click(PointerEventData? eventData)
+    protected virtual void InvokeClick(PointerEventData? eventData)
     {
         OnClick?.Invoke(this, eventData);
+    }
+
+    public void Click(PointerEventData? eventData)
+    {
+        InvokeClick(eventData);
 
         if (destroyOnClick)
         {
@@ -48,7 +53,6 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
 
     protected virtual void Start()
     {
-        UpdatePosition();
     }
 
     void Update()
