@@ -7,7 +7,9 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; set; }
 
+    public List<AudioClip> radioClips;
     public AudioSource radioMusic;
+    private int currentClipIndex = 0;
 
     public AudioSource BellSound;
 
@@ -30,11 +32,24 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void StartRadio()
+    public void Update()
     {
-        if(radioMusic.isPlaying == false && Shoper.soundOn)
-            radioMusic.Play();
-        
+        if (!radioMusic.isPlaying && Shoper.soundOn)
+        {
+            PlayNextRadioClip();
+        }
+
+    }
+
+    private void PlayNextRadioClip()
+    {
+        if (radioClips.Count == 0)
+            return;
+
+        int randomIndex = Random.Range(0, radioClips.Count);
+        radioMusic.clip = radioClips[randomIndex];
+        radioMusic.Play();
+
     }
 
 

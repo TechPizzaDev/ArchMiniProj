@@ -93,11 +93,6 @@ public class StateManager : MonoBehaviour
         //Animator
         AnimationDirection();
 
-        
-
-
-
-
 
         if (walking)
         {
