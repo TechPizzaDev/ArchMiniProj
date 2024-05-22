@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6946501798213097184}
-  - component: {fileID: 4462432636381590431}
+  - component: {fileID: 625894009745199369}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -177,8 +177,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1851393153501642247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4462432636381590431
-BoxCollider2D:
+--- !u!60 &625894009745199369
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -219,6 +219,17 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.42743173, y: 0.7079692}
+      - {x: 0.17800534, y: 0.09598931}
+      - {x: -0.09621175, y: 0.14104351}
+      - {x: -0.28003624, y: 0.42240724}
+      - {x: -0.48687077, y: 0.6981726}
+      - {x: -0.5577873, y: 0.37593648}
+      - {x: -0.35506746, y: -0.22169945}
+      - {x: -0.07267223, y: -0.62213355}
+      - {x: 0.2562071, y: -0.5821289}
+      - {x: 0.47492936, y: -0.05899861}
+      - {x: 0.4992062, y: 0.64019907}
+  m_UseDelaunayMesh: 0

@@ -74,7 +74,8 @@ public class StationManager : MonoBehaviour
                     objectInHand.GetComponent<Rigidbody2D>().isKinematic = false;
                 }
 
-                if (hit.collider == selectedArea && TryPlace(selectedDict, selectedArea == null ? Vector3.zero : selectedArea.transform.position, objectInHand))
+                Vector3 placePos = selectedArea == null ? Vector3.zero : selectedArea.transform.position;
+                if (hit.collider == selectedArea && TryPlace(selectedDict, placePos, objectInHand))
                 {
                 }
                 else if (ingredient is IngredientSandwich)
@@ -201,44 +202,46 @@ public class StationManager : MonoBehaviour
     {
         Dictionary<Ingredient, List<GameObject>> previousDict = smoothieIngredients;
 
-        if (FinishedItem(orderedSmoothie, ref smoothieIngredients))
+        if (!FinishedItem(orderedSmoothie, ref smoothieIngredients))
         {
-            var spriteList = new List<(Color startColor, SpriteRenderer sprite)>();
-            foreach (var list in previousDict.Values)
+            return;
+        }
+
+        var spriteList = new List<(Color startColor, SpriteRenderer sprite)>();
+        foreach (var list in previousDict.Values)
+        {
+            foreach (var obj in list)
             {
-                foreach (var obj in list)
+                Rigidbody2D rigid = obj.GetComponent<Rigidbody2D>();
+                rigid.isKinematic = true;
+                rigid.velocity = new Vector2(0, 0);
+
+                foreach (var collider in obj.GetComponentsInChildren<Collider2D>())
                 {
-                    Rigidbody2D rigid = obj.GetComponent<Rigidbody2D>();
-                    rigid.isKinematic = true;
-                    rigid.velocity = new Vector2(0, 0);
+                    collider.enabled = false;
+                }
 
-                    foreach (var collider in obj.GetComponentsInChildren<Collider2D>())
-                    {
-                        collider.enabled = false;
-                    }
-
-                    foreach (var sprite in obj.GetComponentsInChildren<SpriteRenderer>())
-                    {
-                        spriteList.Add((sprite.color, sprite));
-                    }
+                foreach (var sprite in obj.GetComponentsInChildren<SpriteRenderer>())
+                {
+                    spriteList.Add((sprite.color, sprite));
                 }
             }
-
-            blender.PlayBlending(progress =>
-            {
-                foreach ((Color startColor, SpriteRenderer sprite) in spriteList)
-                {
-                    sprite.color = Color.Lerp(startColor, new Color(1, 1, 1, 0), progress);
-                }
-
-                if (progress >= 1f)
-                {
-                    DestroyObjectsInDict(previousDict);
-                }
-            });
-
-            Debug.Log("Finished smoothie.");
         }
+
+        blender.PlayBlending(progress =>
+        {
+            foreach ((Color startColor, SpriteRenderer sprite) in spriteList)
+            {
+                sprite.color = Color.Lerp(startColor, new Color(1, 1, 1, 0), progress);
+            }
+
+            if (progress >= 1f)
+            {
+                DestroyObjectsInDict(previousDict);
+            }
+        });
+
+        //Debug.Log("Finished smoothie.");
     }
 
     public static void DestroyObjectsInDict(Dictionary<Ingredient, List<GameObject>> dict)
