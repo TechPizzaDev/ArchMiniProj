@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2ae1c877c873e4f8b4c1869735b252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneRoot: {fileID: 1409262024}
   visualPrefab: {fileID: 4147473043945918783, guid: 5dcdf0ae2afedab4687dc97a86001a0b, type: 3}
   currentSandwich: {fileID: 0}
   blender: {fileID: 915698856}
@@ -2262,7 +2263,7 @@ Transform:
   m_GameObject: {fileID: 1744522216}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.66, y: -3.59, z: -0.026251733}
+  m_LocalPosition: {x: 13.4, y: -3.59, z: -0.026251733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3500,7 +3501,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1889380670277373112, guid: d683d51c467906e40aaa98b207c1c69f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1889380670277373112, guid: d683d51c467906e40aaa98b207c1c69f, type: 3}
       propertyPath: m_LocalPosition.y

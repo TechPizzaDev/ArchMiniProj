@@ -51,6 +51,10 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
         OnClose?.Invoke(this, eventData);
     }
 
+    void Awake()
+    {
+    }
+
     protected virtual void Start()
     {
     }

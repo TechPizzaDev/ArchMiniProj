@@ -7,6 +7,8 @@ public class SceneRoot : MonoBehaviour
 {
     public List<SceneRoot> roots;
 
+    public SceneRoot gameRoot { get; private set; }
+
     public Scene scene;
     public int sceneIndex;
 
@@ -23,6 +25,8 @@ public class SceneRoot : MonoBehaviour
         roots = GameObject.FindGameObjectsWithTag("SceneRoot")
             .Select(obj => obj.GetComponent<SceneRoot>())
             .ToList();
+
+        gameRoot = roots.OrderBy(r => r.gameObject.scene.buildIndex).First();
 
         scene = gameObject.scene;
         sceneIndex = scene.buildIndex;

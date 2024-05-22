@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StationManager : MonoBehaviour
 {
+    Dictionary<int, StationDropoff> stationDropoffs;
+
     GameObject objectInHand;
 
+    public SceneRoot sceneRoot;
     public GameObject visualPrefab;
     public VisualSandwich currentSandwich;
     public VisualBlender blender;
@@ -23,6 +27,10 @@ public class StationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stationDropoffs = sceneRoot.gameRoot.scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<StationDropoff>())
+            .ToDictionary(c => c.stationIndex);
+
         currentSandwich = SpawnVisual();
     }
 
@@ -168,14 +176,16 @@ public class StationManager : MonoBehaviour
         return false;
     }
 
-    private static bool FinishedItem(GameObject prefab, ref Dictionary<Ingredient, List<GameObject>> dict)
+    private bool FinishedItem(int stationIndex, GameObject prefab, ref Dictionary<Ingredient, List<GameObject>> dict)
     {
         if (dict.Count == 0)
         {
             return false;
         }
 
-        GameObject instance = Instantiate(prefab);
+        StationDropoff dropoff = stationDropoffs[stationIndex];
+
+        GameObject instance = dropoff.InstantiateItem(prefab);
         instance.GetComponent<OrderedItem>().ingredients = dict;
 
         dict = new Dictionary<Ingredient, List<GameObject>>();
@@ -184,7 +194,7 @@ public class StationManager : MonoBehaviour
 
     public void FinishedSandwich()
     {
-        if (!FinishedItem(orderedSandwich, ref sandwichIngredients))
+        if (!FinishedItem(0, orderedSandwich, ref sandwichIngredients))
         {
             return;
         }
@@ -202,7 +212,7 @@ public class StationManager : MonoBehaviour
     {
         Dictionary<Ingredient, List<GameObject>> previousDict = smoothieIngredients;
 
-        if (!FinishedItem(orderedSmoothie, ref smoothieIngredients))
+        if (!FinishedItem(1, orderedSmoothie, ref smoothieIngredients))
         {
             return;
         }
