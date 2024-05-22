@@ -108,7 +108,7 @@ MonoBehaviour:
   timerBarPrefab: {fileID: 8756359371096676503, guid: 898226c94cc5e4f41a6de12bca2af23a, type: 3}
   timerBarInstance: {fileID: 0}
   timerBar: {fileID: 0}
-  seatManager: []
+  seatManagers: []
   leavingStorePosition: {fileID: 0}
   enterStorePosition: {fileID: 0}
   int_chosenTable: 0
@@ -145,7 +145,7 @@ NavMeshAgent:
   m_Height: 0.2
   m_BaseOffset: 0.1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!61 &6751363244810314906
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7041465545911989998}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
