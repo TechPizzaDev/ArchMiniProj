@@ -122,8 +122,15 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   walking: 0
   popupPosition: {x: 0, y: 0.75, z: 0}
-  lightBlue: {r: 0, g: 0.7345861, b: 0.7830189, a: 1}
-  purple: {r: 0.65938854, g: 0, b: 1, a: 1}
+  orderSprite: {fileID: 21300000, guid: f2a0da8001f45224db2b2f06ce22c09b, type: 3}
+  orderColor: {r: 0.65882355, g: 0, b: 1, a: 1}
+  waitingSprite: {fileID: 21300000, guid: 3ffadbfdb9a8b484ebe5f8a205f77db7, type: 3}
+  waitingColor: {r: 0, g: 1, b: 0, a: 1}
+  annoyedSprite: {fileID: 21300000, guid: 85d293f5d15584b46b2388381e4197bd, type: 3}
+  annoyedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  angrySprite: {fileID: 21300000, guid: 515647df8521eb34f929bebccc380f3d, type: 3}
+  angryColor: {r: 1, g: 0, b: 0, a: 1}
+  eatingColor: {r: 0, g: 0.73333335, b: 0.78431374, a: 1}
 --- !u!195 &3649823335037978888
 NavMeshAgent:
   m_ObjectHideFlags: 0

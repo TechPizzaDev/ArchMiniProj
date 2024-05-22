@@ -7,13 +7,15 @@ using UnityEngine.SceneManagement;
 public class LvlManager : MonoBehaviour
 {
     public int lvl;
-    public static int agentsDestroyd;
+    public int agentsSpawned;
+    public int agentsDestroyd;
     public int ingridents = 1;
     public Button nextLvlButton;
     [SerializeField] UI_Shop uiShop;
     [SerializeField] Shopper shoper;
     public bool shopOpen;
     public TMP_Text lvlText;
+    public Slider lvlProgress;
     public TMP_Text ingridentsText;
     public TMP_Text goldText;
     public TMP_Text customerText;
@@ -79,9 +81,9 @@ public class LvlManager : MonoBehaviour
 
     IEnumerator CustomerSpawn()
     {
-        int callsMade = 0;
+        agentsSpawned = 0;
 
-        while (callsMade < customersThisLvl)
+        while (agentsSpawned < customersThisLvl)
         {
             if (shoper.bellOn)
             {
@@ -89,7 +91,10 @@ public class LvlManager : MonoBehaviour
             }
 
             customerManager.Spawn();
-            callsMade++;
+
+            agentsSpawned++;
+            UpdateText();
+
             yield return new WaitForSeconds(callInterval);
         }
 
@@ -99,10 +104,11 @@ public class LvlManager : MonoBehaviour
     public void AgentDestroyed()
     {
         agentsDestroyd++;
+        UpdateText();
+
         if (agentsDestroyd >= customersThisLvl)
         {
             LevelComplete();
-            agentsDestroyd = 0;
             SoundManager.Instance.BuySound.Play();
         }
     }
@@ -136,6 +142,8 @@ public class LvlManager : MonoBehaviour
     void LevelComplete()
     {
         Debug.Log("Level Complete!");
+        agentsDestroyd = 0;
+        agentsSpawned = 0;
         ingridents -= customersThisLvl;
         ingridentsText.text = " " + ingridents;
         shopOpen = true;
@@ -156,11 +164,11 @@ public class LvlManager : MonoBehaviour
         {
             // lose. You forgot to buy ingridents
             Debug.Log(" YOU LOST ");
-            SceneManager.LoadSceneAsync(3);
+            SceneManager.LoadSceneAsync(4);
         }
 
-        ingridentsText.text = " " + ingridents;
-        lvlText.text = "Lvl " + lvl;
+        lvlProgress.value = 0;
+        UpdateText();
         LvlAtributes();
         StartCoroutine(CustomerSpawn());
     }
@@ -169,6 +177,16 @@ public class LvlManager : MonoBehaviour
     {
         ingridentsText.text = " " + ingridents;
         lvlText.text = "Lvl " + lvl;
-        customerText.text = "Costumers Expected " + customersThisLvl;
+        lvlProgress.value = agentsDestroyd;
+        lvlProgress.maxValue = customersThisLvl;
+
+        if (shoper.bellOn)
+        {
+            customerText.text = $"Customers: {agentsSpawned}/{customersThisLvl}";
+        }
+        else
+        {
+            customerText.text = $"Customers: {customersThisLvl}";
+        }
     }
 }

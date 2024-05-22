@@ -48,8 +48,20 @@ public class StateManager : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public bool walking;
     public Vector3 popupPosition;
-    public Color lightBlue;
-    public Color purple;
+
+    public Sprite orderSprite;
+    public Color orderColor;
+
+    public Sprite waitingSprite;
+    public Color waitingColor = Color.green;
+    
+    public Sprite annoyedSprite;
+    public Color annoyedColor = Color.yellow;
+    
+    public Sprite angrySprite;
+    public Color angryColor = Color.red;
+
+    public Color eatingColor;
 
     void Start()
     {
@@ -84,7 +96,6 @@ public class StateManager : MonoBehaviour
 
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
 
     // Update is called once per frame
@@ -124,6 +135,7 @@ public class StateManager : MonoBehaviour
             lvlManager.GetGold(GetTimeLeftOnOrder());
             lvlManager.AgentDestroyed();
         }
+
         Destroy(gameObject);
     }
 

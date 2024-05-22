@@ -1,6 +1,7 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 #nullable enable
 
@@ -8,15 +9,26 @@ public delegate void EmoteDelegate(EmoteEntry entry, PointerEventData? eventData
 
 public class EmoteEntry : MonoBehaviour, IPointerClickHandler
 {
+    private Image? _image;
+
     public bool followSource = true;
     public bool destroyOnClick = true;
 
     public Vector3 position;
+    public float jiggleRate = 5f;
+    public float jiggleFactor = 0.04f;
 
     public GameObject? Source { get; set; }
 
     public event EmoteDelegate? OnClick;
     public event EmoteDelegate? OnClose;
+
+    public Image GetImage()
+    {
+        if (_image == null)
+            _image = GetComponent<Image>();
+        return _image;
+    }
 
     public virtual bool IsClickingEvent(PointerEventData eventData)
     {
@@ -34,11 +46,6 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
     protected virtual void InvokeClick(PointerEventData? eventData)
     {
         OnClick?.Invoke(this, eventData);
-    }
-
-    public void Click(PointerEventData? eventData)
-    {
-        InvokeClick(eventData);
 
         if (destroyOnClick)
         {
@@ -46,12 +53,24 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void Close(PointerEventData? eventData)
+    public void Click(PointerEventData? eventData)
     {
-        OnClose?.Invoke(this, eventData);
+        InvokeClick(eventData);
     }
 
-    void Awake()
+    protected virtual void InvokeClose(PointerEventData? eventData)
+    {
+        OnClose?.Invoke(this, eventData);
+
+        Destroy(gameObject);
+    }
+
+    public void Close(PointerEventData? eventData)
+    {
+        InvokeClose(eventData);
+    }
+
+    protected virtual void Awake()
     {
     }
 
@@ -59,7 +78,7 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
     {
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (followSource)
         {
@@ -80,6 +99,11 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
         if (followSource && Source != null)
         {
             targetPosition += Source.transform.position;
+        }
+
+        if (jiggleFactor != 0)
+        {
+            targetPosition += new Vector3(0, Mathf.Sin(Time.time * jiggleRate) * jiggleFactor, 0);
         }
 
         return targetPosition;

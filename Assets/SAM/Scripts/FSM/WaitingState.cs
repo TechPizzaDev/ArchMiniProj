@@ -1,18 +1,37 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class WaitingState : BaseState
 {
+    public EmoteEntry emote;
+
     float timer = 0;
+    Image emoteImage;
+
+    bool waitingEmoteClicked;
 
     public override void EnterState(StateManager agent)
     {
         //Debug.Log("Entered WaitingState...");
         timer = agent.waitingForFoodTime;
+        emoteImage = emote.GetImage();
 
         agent.timeLeftOnOrder = timer;
 
         agent.timerBar.SetMaxTime(agent.waitingForFoodTime);
-        agent.timerBar.timerColor.color = Color.green;
+
+        agent.timerBar.timerColor.color = agent.waitingColor;
+        emoteImage.sprite = agent.waitingSprite;
+
+        emote.OnClick += Emote_OnClick;
+    }
+
+    private void Emote_OnClick(EmoteEntry entry, PointerEventData eventData)
+    {
+        if (eventData == null) return;
+
+        waitingEmoteClicked = true;
     }
 
     public override void UpdateState(StateManager agent)
@@ -32,15 +51,23 @@ public class WaitingState : BaseState
 
         if (timer < (agent.waitingForFoodTime * 0.75f) && timer > (agent.waitingForFoodTime / 3))
         {
-            agent.timerBar.timerColor.color = Color.yellow;
+            agent.timerBar.timerColor.color = agent.annoyedColor;
+            emoteImage.sprite = agent.annoyedSprite;
         }
         else if (timer < (agent.waitingForFoodTime / 3) && timer > 0)
         {
-            agent.timerBar.timerColor.color = Color.red;
+            agent.timerBar.timerColor.color = agent.angryColor;
+            emoteImage.sprite = agent.angrySprite;
         }
         else if (timer <= 0)
         {
+            if (emote != null)
+                emote.Close(null);
+
             agent.SwitchState(agent.standingUpState);
+
+            SoundManager.Instance.NoSound.Play();
+            return;
         }
 
         // TODO: hur ska vi ge kunderna färdig mat?
@@ -51,18 +78,19 @@ public class WaitingState : BaseState
         // genom att klicka på rätt kund och vänta tills kunden når fram.
         // Endast då blir "orderDelivered" true.
 
-        bool orderDelivered = true;
-
-        if (orderDelivered && Input.GetMouseButtonDown(0)) // Check if left mouse button is clicked
+        if (waitingEmoteClicked)
         {
-            // Cast a ray from the mouse position
-            RaycastHit2D hit = RayHelper.RaycastFromCamera(Input.mousePosition);
-
-            // Check if the ray hits this object and the object has a BoxCollider2D
-            if (hit.collider != null && hit.collider.gameObject == agent.gameObject && agent.GetComponent<BoxCollider2D>() != null)
-            {
-                agent.SwitchState(agent.eatingState);
-            }
+            TryGrabOrder(agent);
+            waitingEmoteClicked = false;
         }
+    }
+
+    private void TryGrabOrder(StateManager agent)
+    {
+        emote.Close(null);
+
+        agent.SwitchState(agent.eatingState);
+
+        SoundManager.Instance.YesSound.Play();
     }
 }

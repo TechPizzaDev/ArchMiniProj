@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,13 +21,18 @@ public class SceneRoot : MonoBehaviour
 
     public List<GameObject> inverseObjects = new();
 
+    public SceneRoot()
+    {
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+
     void Awake()
     {
         roots = GameObject.FindGameObjectsWithTag("SceneRoot")
             .Select(obj => obj.GetComponent<SceneRoot>())
             .ToList();
 
-        gameRoot = roots.OrderBy(r => r.gameObject.scene.buildIndex).First();
+        gameRoot = roots.OrderBy(r => r.gameObject.scene.buildIndex).FirstOrDefault();
 
         scene = gameObject.scene;
         sceneIndex = scene.buildIndex;
@@ -41,6 +47,14 @@ public class SceneRoot : MonoBehaviour
 
         foreach (GameObject obj in disable)
             obj.SetActive(false);
+    }
+
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode mode)
+    {
+        if (!this.IsDestroyed() && mode == LoadSceneMode.Additive)
+        {
+            Awake();
+        }
     }
 
     public void SetObjectsActive(bool active)

@@ -9,7 +9,7 @@ public class EatingState : BaseState
         //Debug.Log("Entered EatingState...");
 
         timer = agent.eatingTime;
-        agent.timerBar.timerColor.color = agent.lightBlue;
+        agent.timerBar.timerColor.color = agent.eatingColor;
         agent.timerBar.SetMaxTime(agent.eatingTime);
     }
 

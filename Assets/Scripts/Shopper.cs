@@ -44,7 +44,7 @@ public class Shopper : MonoBehaviour, IShopCustomer
         }
         else if (itemType == ItemType.GoldenSpatula)
         {
-            SceneManager.LoadSceneAsync(2);
+            SceneManager.LoadSceneAsync(3);
             // Win the Game
         }
         lvlManager.UpdateText();

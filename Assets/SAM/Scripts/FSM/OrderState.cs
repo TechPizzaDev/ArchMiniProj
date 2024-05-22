@@ -20,13 +20,17 @@ public class OrderState : BaseState
 
         agent.SpawnTimerBar();
         agent.timerBar.SetMaxTime(agent.waitingForOrderTime);
-        agent.timerBar.timerColor.color = agent.purple;
+
+        agent.timerBar.timerColor.color = agent.orderColor;
 
         if (orderEmote != null)
             orderEmote.Close(null);
 
         orderEmote = announceOrder.Invoke(agent.gameObject);
         orderEmote.OnClick += OrderEmote_OnClick;
+
+        var emoteImage = orderEmote.GetImage();
+        emoteImage.sprite = agent.orderSprite;
     }
 
     public override void UpdateState(StateManager agent)
@@ -52,7 +56,8 @@ public class OrderState : BaseState
         var agent = emote.Source == null ? null : emote.Source.GetComponent<StateManager>();
         if (agent != null)
         {
-            commitOrder.Invoke(agent.gameObject);
+            agent.waitingState.emote = commitOrder.Invoke(agent.gameObject);
+            agent.waitingState.emote.destroyOnClick = false;
 
             agent.SwitchState(agent.waitingState);
         }

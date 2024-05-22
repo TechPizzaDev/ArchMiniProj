@@ -14,6 +14,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource BuySound;
     public AudioSource DeclineSound;
 
+    public AudioSource YesSound;
+    public AudioSource NoSound;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

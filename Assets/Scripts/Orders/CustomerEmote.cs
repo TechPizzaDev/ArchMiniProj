@@ -1,5 +1,5 @@
 ﻿
-public class OrderEntry : EmoteEntry
+public class CustomerEmote : EmoteEntry
 {
     public StateManager Customer { get; set; }
 

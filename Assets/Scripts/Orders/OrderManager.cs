@@ -6,7 +6,7 @@ using UnityEngine;
 public class OrderManager : MonoBehaviour
 {
     [SerializeField]
-    private List<OrderEntry> orders = new();
+    private List<CustomerEmote> orders = new();
 
     void Start()
     {
@@ -18,12 +18,12 @@ public class OrderManager : MonoBehaviour
 
     }
 
-    public void AddOrder(OrderEntry entry)
+    public void AddOrder(CustomerEmote entry)
     {
         orders.Add(entry);
     }
 
-    public void RemoveOrder(OrderEntry entry)
+    public void RemoveOrder(CustomerEmote entry)
     {
         orders.Remove(entry);
     }
