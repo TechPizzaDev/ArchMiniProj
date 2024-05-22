@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopTrigger : MonoBehaviour
 {
     [SerializeField] UI_Shop uiShop;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IShopCustomer shopCustomer = collision.GetComponent<IShopCustomer>();
-        if(shopCustomer != null )
+        if (collision.TryGetComponent<IShopCustomer>(out var shopCustomer))
         {
             uiShop.Show(shopCustomer);
         }
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
-        IShopCustomer shopCustomer = other.GetComponent<IShopCustomer>();
-        if (shopCustomer != null)
+        if (other.TryGetComponent<IShopCustomer>(out var shopCustomer))
         {
             uiShop.Hide();
         }

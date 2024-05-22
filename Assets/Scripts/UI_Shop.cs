@@ -13,8 +13,7 @@ public class UI_Shop : MonoBehaviour
     public TMP_Text ingridentsText;
     [SerializeField] Shopper shoper;
     LvlManager lvlManager;
-    private List<Button> itemButtons = new List<Button>();
-
+    private List<Button> itemButtons = new();
 
     private void Awake()
     {
@@ -22,7 +21,6 @@ public class UI_Shop : MonoBehaviour
         shopItemTemplate = container.Find("shopItemTemplate");
         shopItemTemplate.gameObject.SetActive(true);
         lvlManager = FindAnyObjectByType<LvlManager>();
-
     }
 
     private void Start()
@@ -34,7 +32,6 @@ public class UI_Shop : MonoBehaviour
         CreateItemButton(ItemType.Bell, Item.GetSprite(ItemType.Bell), "Bell", Item.GetCost(ItemType.Bell), -2);
 
         Hide();
-      
     }
 
     private void CreateItemButton(ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
@@ -56,27 +53,28 @@ public class UI_Shop : MonoBehaviour
         itemButtons.Add(button);  // Lägg till knappen till listan
     }
 
-
     public void TryBuyItem(ItemType itemType)
     {
-        if(shopCustomer.TrySpendGoldAmount(Item.GetCost(itemType)))
+        if (shopCustomer.TrySpendGoldAmount(Item.GetCost(itemType)))
         {
             // money to spend
             SoundManager.Instance.BuySound.Play();
-         
+
             shopCustomer.BoughtItem(itemType);
             goldText.text = "Gold " + shoper.gold;
             ingridentsText.text = " " + lvlManager.ingridents;
         }
-        else 
+        else
         {
             SoundManager.Instance.DeclineSound.Play();
         }
     }
+
     public void UpdadtNumbers()
     {
         goldText.text = "Gold " + shoper.gold;
     }
+
     public void Show(IShopCustomer shopCustomer)
     {
         this.shopCustomer = shopCustomer;
@@ -85,8 +83,9 @@ public class UI_Shop : MonoBehaviour
 
     public void Hide()
     {
-        gameObject.SetActive(false);    
+        gameObject.SetActive(false);
     }
+
     public void HideButton(int index)
     {
         if (index >= 0 && index < itemButtons.Count)
@@ -94,5 +93,4 @@ public class UI_Shop : MonoBehaviour
             itemButtons[index].gameObject.SetActive(false);
         }
     }
-
 }

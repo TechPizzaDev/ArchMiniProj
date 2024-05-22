@@ -1,26 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class WaitingState : BaseState
 {
-
-
-    
     float timer = 0;
 
     public override void EnterState(StateManager agent)
     {
         //Debug.Log("Entered WaitingState...");
         timer = agent.waitingForFoodTime;
-      
+
         agent.timeLeftOnOrder = timer;
-        
+
         agent.timerBar.SetMaxTime(agent.waitingForFoodTime);
         agent.timerBar.timerColor.color = Color.green;
     }
-
 
     public override void UpdateState(StateManager agent)
     {
@@ -37,16 +30,13 @@ public class WaitingState : BaseState
 
         agent.timerBar.SetTime(timer);
 
-        if (timer < (agent.waitingForFoodTime*0.75f) && timer > (agent.waitingForFoodTime/3))
+        if (timer < (agent.waitingForFoodTime * 0.75f) && timer > (agent.waitingForFoodTime / 3))
         {
-
             agent.timerBar.timerColor.color = Color.yellow;
-
         }
-        else if (timer < (agent.waitingForFoodTime/3) && timer > 0)
+        else if (timer < (agent.waitingForFoodTime / 3) && timer > 0)
         {
             agent.timerBar.timerColor.color = Color.red;
-            
         }
         else if (timer <= 0)
         {
@@ -74,7 +64,5 @@ public class WaitingState : BaseState
                 agent.SwitchState(agent.eatingState);
             }
         }
-
     }
-
 }

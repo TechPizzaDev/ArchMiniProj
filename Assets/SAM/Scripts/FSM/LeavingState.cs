@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class LeavingState : BaseState
@@ -16,58 +13,36 @@ public class LeavingState : BaseState
         timer = waitTime;
         navPosition = agent.leavingStorePosition.transform;
         agent.walking = true;
-
     }
-
 
     public override void UpdateState(StateManager agent)
     {
-    
-
         timer -= Time.deltaTime;
 
         if (timer < 0)
         {
             if (leftTable == false)
             {
-                agent.seatManager[agent.int_chosenTable].FreeSeat();
+                agent.seatManagers[agent.int_chosenTable].FreeSeat();
                 leftTable = true;
             }
 
             if (leftTable == true)
             {
                 SetDestination(agent);
-
             }
         }
 
         if (Vector3.Distance(agent.navMeshAgent.nextPosition, navPosition.position) < 1f)
         {
-
             agent.DestroyCustomer();
-
         }
-
     }
+
     void SetDestination(StateManager agent)
     {
-
-        if (agent.navMeshAgent == null)
-        {
-            Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
-            return;
-        }
-
-        if (!agent.navMeshAgent.isOnNavMesh)
-        {
-            Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
-            return;
-        }
-
+        if (!NavMeshHelper.Validate(agent.navMeshAgent)) return;
 
         agent.navMeshAgent.destination = navPosition.position;
-
-
-
     }
 }

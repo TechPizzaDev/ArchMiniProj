@@ -28,11 +28,6 @@ public class LvlManager : MonoBehaviour
     public float incomeIncrease = 1f;
     public float income = 100;
 
-    private void Awake()
-    {
-        //shoper = FindAnyObjectByType<Shoper>();
-    }
-
     void Start()
     {
         customerManager = FindAnyObjectByType<CustomerManager>();
@@ -153,7 +148,6 @@ public class LvlManager : MonoBehaviour
         customersThisLvl += customerIncreas;
         ActivateStuff();
         UpdateText();
-
     }
 
     public void StartNewLvl()
@@ -164,6 +158,7 @@ public class LvlManager : MonoBehaviour
             Debug.Log(" YOU LOST ");
             SceneManager.LoadSceneAsync(3);
         }
+
         ingridentsText.text = " " + ingridents;
         lvlText.text = "Lvl " + lvl;
         LvlAtributes();

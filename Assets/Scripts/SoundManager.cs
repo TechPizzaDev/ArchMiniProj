@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -16,10 +14,6 @@ public class SoundManager : MonoBehaviour
     public AudioSource BuySound;
     public AudioSource DeclineSound;
 
-    public AudioClip Shoot;
-
-
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,11 +28,10 @@ public class SoundManager : MonoBehaviour
 
     public void Update()
     {
-        if (!radioMusic.isPlaying && Shoper.soundOn)
+        if (!radioMusic.isPlaying && Shopper.soundOn)
         {
             PlayNextRadioClip();
         }
-
     }
 
     private void PlayNextRadioClip()
@@ -49,9 +42,5 @@ public class SoundManager : MonoBehaviour
         int randomIndex = Random.Range(0, radioClips.Count);
         radioMusic.clip = radioClips[randomIndex];
         radioMusic.Play();
-
     }
-
-
-
 }

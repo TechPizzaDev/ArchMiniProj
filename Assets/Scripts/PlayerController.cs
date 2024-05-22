@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -79,11 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void SetDestination()
     {
-        if (navMeshAgent == null)
-        {
-            Debug.LogError("NavMeshAgent reference is null. Make sure it's properly initialized.");
-            return;
-        }
+        if (!NavMeshHelper.Validate(navMeshAgent)) return;
 
         Vector3 mousePos = Input.mousePosition;
 
@@ -94,13 +89,5 @@ public class PlayerController : MonoBehaviour
         destinationPoint.position = new Vector3(worldPos.x, worldPos.y, 0f);
 
         navMeshAgent.destination = destinationPoint.position;
-
-        if (!navMeshAgent.isOnNavMesh)
-        {
-            Debug.LogError("NavMeshAgent is not on a NavMesh surface.");
-            return;
-        }
     }
-
-
 }

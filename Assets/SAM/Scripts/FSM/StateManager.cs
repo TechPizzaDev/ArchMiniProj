@@ -8,14 +8,14 @@ public class StateManager : MonoBehaviour
     //--------------------SUBKLASSER--------------------------------
 
     public BaseState currentState;
-    public EnteringState enteringState = new EnteringState();
-    public WalkToTableState walkToTableState = new WalkToTableState();
-    public SittingDownState sittingState = new SittingDownState();
-    public OrderState orderState = new OrderState();
-    public WaitingState waitingState = new WaitingState();
-    public EatingState eatingState = new EatingState();
-    public StandingUpState standingUpState = new StandingUpState();
-    public LeavingState leavingState = new LeavingState();
+    public EnteringState enteringState = new();
+    public WalkToTableState walkToTableState = new();
+    public SittingDownState sittingState = new();
+    public OrderState orderState = new();
+    public WaitingState waitingState = new();
+    public EatingState eatingState = new();
+    public StandingUpState standingUpState = new();
+    public LeavingState leavingState = new();
 
 
     //-------------------------------------------------------------
@@ -30,7 +30,7 @@ public class StateManager : MonoBehaviour
     public TimerBar timerBar;
 
     private string[] seatNames = { "Chair1", "Chair2", "Chair3", "Chair4", "Chair5", "Chair6", "Chair7", "Chair8" };
-    public SeatManager[] seatManager;
+    public SeatManager[] seatManagers;
 
     public GameObject leavingStorePosition;
     public GameObject enterStorePosition;
@@ -66,15 +66,16 @@ public class StateManager : MonoBehaviour
 
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");
         enterStorePosition = GameObject.Find("EnteredStorePosition");
+
         seats = new Transform[seatNames.Length];
-        seatManager = new SeatManager[seats.Length];
+        seatManagers = new SeatManager[seats.Length];
 
 
         for (int i = 0; i < seatNames.Length; i++)
         {
             GameObject patrolPointObj = GameObject.Find(seatNames[i]);
             seats[i] = patrolPointObj.transform;
-            seatManager[i] = seats[i].GetComponent<SeatManager>();
+            seatManagers[i] = seats[i].GetComponent<SeatManager>();
 
         }
 

@@ -9,8 +9,6 @@ public class OrderState : BaseState
     public Func<GameObject?, EmoteEntry> announceOrder = null!;
     public Func<GameObject?, EmoteEntry> commitOrder = null!;
 
-
-
     float timer = 0;
 
     private EmoteEntry? orderEmote;
@@ -20,11 +18,9 @@ public class OrderState : BaseState
         //Debug.Log("Entered OrderState");
         timer = agent.waitingForOrderTime;
 
-
         agent.SpawnTimerBar();
         agent.timerBar.SetMaxTime(agent.waitingForOrderTime);
         agent.timerBar.timerColor.color = agent.purple;
-
 
         if (orderEmote != null)
             orderEmote.Close(null);
@@ -37,13 +33,10 @@ public class OrderState : BaseState
     {
         agent.SittingDirection();
 
-
         timer -= Time.deltaTime;
 
         agent.timerBar.SetTime(timer);
         agent.timerBarInstance.transform.position = agent.transform.position + agent.popupPosition;
-
-
 
         if (timer < 0)
         {

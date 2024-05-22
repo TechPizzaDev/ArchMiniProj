@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +5,6 @@ using UnityEngine.UI;
 public class ShopDisplay : MonoBehaviour
 {
     [SerializeField] private Button _buyTab;
- 
 
     [Header("Shopping Cart")]
     [SerializeField] private TextMeshProUGUI _basketTotalText;
@@ -29,20 +26,20 @@ public class ShopDisplay : MonoBehaviour
     private int _basketTotal;
 
 
-    public void DisplayShopWindow(ShopSystem shopSystem )
+    public void DisplayShopWindow(ShopSystem shopSystem)
     {
         _shopSystem = shopSystem;
-      
 
         RefreshDisplay();
     }
+
     private void RefreshDisplay()
     {
         if (_buyButton != null)
         {
-            _buyButtonText.text =  "Buy Items";
+            _buyButtonText.text = "Buy Items";
             _buyButton.onClick.RemoveAllListeners();
-            
+
             //_buyButton.onClick.AddListener(BuyItems);
         }
 
@@ -52,16 +49,14 @@ public class ShopDisplay : MonoBehaviour
         _basketTotalText.enabled = false;
         _buyButton.gameObject.SetActive(false);
         _basketTotal = 0;
-     
+
         _shopGoldText.text = $"Shop Gold: {_shopSystem.AvailableGold}";
 
-      
         DisplayShopInventory();
-
     }
 
     private void DisplayShopInventory()
     {
-       
+
     }
 }
