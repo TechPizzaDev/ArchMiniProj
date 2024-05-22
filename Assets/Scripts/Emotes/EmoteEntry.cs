@@ -65,11 +65,11 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
                 return;
             }
 
-            UpdatePosition();
+            transform.position = CalculatePosition();
         }
     }
 
-    void UpdatePosition()
+    public virtual Vector3 CalculatePosition()
     {
         Vector3 targetPosition = position;
 
@@ -78,6 +78,6 @@ public class EmoteEntry : MonoBehaviour, IPointerClickHandler
             targetPosition += Source.transform.position;
         }
 
-        transform.position = targetPosition;
+        return targetPosition;
     }
 }
