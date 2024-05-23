@@ -2,6 +2,7 @@
 public class CustomerEmote : EmoteEntry
 {
     public StateManager Customer { get; set; }
+    public OrderDesc orderDesc { get; set; } 
 
     protected override void Start()
     {
@@ -9,4 +10,6 @@ public class CustomerEmote : EmoteEntry
 
         Customer = Source.GetComponent<StateManager>();
     }
+
+    // TODO: range check
 }

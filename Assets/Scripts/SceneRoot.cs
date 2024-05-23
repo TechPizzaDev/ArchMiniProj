@@ -8,7 +8,11 @@ public class SceneRoot : MonoBehaviour
 {
     public List<SceneRoot> roots;
 
+    public int gameSceneIndex = 1;
+    public int stationSceneIndex = 2;
+    
     public SceneRoot gameRoot { get; private set; }
+    public SceneRoot stationRoot { get; private set; }
 
     public Scene scene;
     public int sceneIndex;
@@ -21,6 +25,9 @@ public class SceneRoot : MonoBehaviour
 
     public List<GameObject> inverseObjects = new();
 
+    public Canvas worldCanvas;
+    public GameObject player;
+
     public SceneRoot()
     {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -32,7 +39,8 @@ public class SceneRoot : MonoBehaviour
             .Select(obj => obj.GetComponent<SceneRoot>())
             .ToList();
 
-        gameRoot = roots.OrderBy(r => r.gameObject.scene.buildIndex).FirstOrDefault();
+        gameRoot = roots.FirstOrDefault(r => r.gameObject.scene.buildIndex == gameSceneIndex);
+        stationRoot = roots.FirstOrDefault(r => r.gameObject.scene.buildIndex == stationSceneIndex);
 
         scene = gameObject.scene;
         sceneIndex = scene.buildIndex;
@@ -47,6 +55,9 @@ public class SceneRoot : MonoBehaviour
 
         foreach (GameObject obj in disable)
             obj.SetActive(false);
+
+        worldCanvas = GameObject.FindWithTag("WorldCanvas").GetComponent<Canvas>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode mode)

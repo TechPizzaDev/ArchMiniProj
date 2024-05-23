@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class WaitingState : BaseState
 {
-    public EmoteEntry emote;
+    public CustomerEmote emote;
 
     float timer = 0;
     Image emoteImage;
@@ -61,8 +63,7 @@ public class WaitingState : BaseState
         }
         else if (timer <= 0)
         {
-            if (emote != null)
-                emote.Close(null);
+            CloseOrder(agent);
 
             agent.SwitchState(agent.standingUpState);
 
@@ -87,10 +88,53 @@ public class WaitingState : BaseState
 
     private void TryGrabOrder(StateManager agent)
     {
-        emote.Close(null);
+        if (!agent.orderStack.TryPeek(out OrderedItem topItem))
+        {
+            SoundManager.Instance.NoSound.Play();
+            return;
+        }
+
+        if (!CompareIng(emote.orderDesc.ingredients, topItem.ingredients))
+        {
+            SoundManager.Instance.NoSound.Play();
+            return;
+        }
+
+        agent.orderStack.TryPop(out OrderedItem poppedItem);
+        Debug.Assert(poppedItem == topItem);
+
+        Object.Destroy(poppedItem.gameObject);
+
+        CloseOrder(agent);
 
         agent.SwitchState(agent.eatingState);
 
         SoundManager.Instance.YesSound.Play();
+    }
+
+    private void CloseOrder(StateManager agent)
+    {
+        agent.orderQueue.Remove(emote.orderDesc);
+
+        if (emote != null)
+            emote.Close(null);
+    }
+
+    private bool CompareIng(
+        Dictionary<Ingredient, int> left,
+        Dictionary<Ingredient, List<GameObject>> right)
+    {
+        if (left.Count != right.Count)
+            return false;
+
+        foreach ((Ingredient leftKey, int leftValue) in left)
+        {
+            if (!right.TryGetValue(leftKey, out List<GameObject> rightValue) || leftValue != rightValue.Count)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

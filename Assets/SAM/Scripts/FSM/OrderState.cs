@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class OrderState : BaseState
 {
     public Func<GameObject?, EmoteEntry> announceOrder = null!;
-    public Func<GameObject?, EmoteEntry> commitOrder = null!;
+    public Func<GameObject?, CustomerEmote> commitOrder = null!;
 
     float timer = 0;
 

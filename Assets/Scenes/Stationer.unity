@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1151651397}
+  nameOverride: 
 --- !u!58 &167163405
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -307,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 71258312}
+  nameOverride: 
 --- !u!58 &254194800
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -668,6 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2047929589052036060, guid: cbda761d27fecd44997683cca87cc55a, type: 3}
+  nameOverride: BBQ Sauce
 --- !u!58 &425613931
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -805,6 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 9204974255081640224, guid: 9543d471b2b3fd945a8d45273848f2bd, type: 3}
+  nameOverride: 
 --- !u!1 &485977560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 527631666561045959, guid: c970d7ad2691c924fa70650c6b534910, type: 3}
+  nameOverride: Mayo
 --- !u!58 &707431996
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1353,6 +1358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 866593596426580499, guid: 7d7685b86ebde2d4bba517e1b83c2159, type: 3}
+  nameOverride: 
 --- !u!1 &840885171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,6 +1824,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roots: []
+  gameSceneIndex: 1
+  stationSceneIndex: 2
   scene:
     m_Handle: 0
   sceneIndex: 0
@@ -2203,6 +2211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5674817516911882956, guid: dabe8679545a77c4e8d1c70ae5c4e38f, type: 3}
+  nameOverride: 
 --- !u!58 &1735354811
 CircleCollider2D:
   m_ObjectHideFlags: 0

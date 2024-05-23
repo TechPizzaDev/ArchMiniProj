@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class StateManager : MonoBehaviour
 {
+    SceneRoot sceneRoot;
     LvlManager lvlManager;
 
     //--------------------SUBKLASSER--------------------------------
@@ -23,6 +24,8 @@ public class StateManager : MonoBehaviour
     public Transform chosenSeat;
     public NavMeshAgent navMeshAgent;
     public Canvas canvas;
+    public OrderStack orderStack;
+    public OrderQueue orderQueue;
 
 
     public GameObject timerBarPrefab;
@@ -54,10 +57,10 @@ public class StateManager : MonoBehaviour
 
     public Sprite waitingSprite;
     public Color waitingColor = Color.green;
-    
+
     public Sprite annoyedSprite;
     public Color annoyedColor = Color.yellow;
-    
+
     public Sprite angrySprite;
     public Color angryColor = Color.red;
 
@@ -65,6 +68,7 @@ public class StateManager : MonoBehaviour
 
     void Start()
     {
+        sceneRoot = GameObject.FindWithTag("SceneRoot").GetComponent<SceneRoot>();
         lvlManager = FindAnyObjectByType<LvlManager>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -72,8 +76,9 @@ public class StateManager : MonoBehaviour
         navMeshAgent.updateUpAxis = false;
 
 
-        canvas = GameObject.FindWithTag("WorldCanvas").GetComponent<Canvas>();
-
+        canvas = sceneRoot.worldCanvas.GetComponent<Canvas>();
+        orderStack = sceneRoot.player.GetComponentInChildren<OrderStack>();
+        orderQueue = sceneRoot.player.GetComponent<OrderQueue>();
 
 
         leavingStorePosition = GameObject.Find("CustomerLeavingPosition");

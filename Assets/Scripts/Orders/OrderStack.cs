@@ -19,9 +19,14 @@ public class OrderStack : MonoBehaviour
         itemTransform.localPosition = GetStackTop(items.Count - 1);
     }
 
-    public bool TryPop(out OrderedItem result)
+    public bool TryPop(out OrderedItem item)
     {
-        return items.TryPop(out result);
+        return items.TryPop(out item);
+    }
+
+    public bool TryPeek(out OrderedItem item)
+    {
+        return items.TryPeek(out item);
     }
 
     public Vector3 GetStackTop(int itemCount)

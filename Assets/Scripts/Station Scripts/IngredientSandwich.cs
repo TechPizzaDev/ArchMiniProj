@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class IngredientSandwich : Ingredient
 {
-
+    public override string productName => "Sandwich";
 }

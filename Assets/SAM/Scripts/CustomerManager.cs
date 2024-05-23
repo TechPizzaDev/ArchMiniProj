@@ -39,8 +39,11 @@ public class CustomerManager : MonoBehaviour
 
         stateManager.orderState.commitOrder += (src) =>
         {
+            var orderDesc = orderManager.CreateOrder();
+
             var emote = emoteManager.InstantiateEmote<CustomerEmote>(src);
-            orderManager.AddOrder(emote);
+            emote.orderDesc = orderDesc;
+
             return emote;
         };
     }
